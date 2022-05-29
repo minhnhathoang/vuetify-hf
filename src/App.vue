@@ -1,0 +1,33 @@
+<template>
+  <v-app>
+    <component :is="resolveLayout"></component>
+  </v-app>
+</template>
+
+<script>
+
+import AuthLayout from "@/components/layouts/AuthLayout";
+import DashboardLayout from "@/components/layouts/DashboardLayout";
+import router from "@/router";
+import {computed} from "vue";
+
+export default {
+  components: {
+    AuthLayout,
+    DashboardLayout
+  },
+  setup() {
+    const resolveLayout = computed(() => {
+      console.log("ZZZL" + router.currentRoute.value.meta.layout);
+      if (router.currentRoute.value.meta.layout === 'blank' || router.currentRoute.value.meta.layout === undefined) return 'auth-layout';
+      return 'dashboard-layout'
+    })
+
+    return {
+      resolveLayout,
+    }
+  }
+}
+
+</script>
+
