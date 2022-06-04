@@ -2,8 +2,7 @@
     <v-layout>
       <v-app-bar
           app
-          permanent
-          class="elevation-0 border-b justify-center position-fixed bg-grey-lighten-4"
+          class="elevation-0 border-b justify-center position-fixed"
       >
 <!--                <v-app-bar-nav-icon variant="text" @click.stop="drawer = !drawer" slot >-->
 <!--                </v-app-bar-nav-icon>-->
@@ -11,7 +10,7 @@
         <v-btn icon>
           <logo-app width="45px" @click.stop="drawer = !drawer"></logo-app>
         </v-btn>
-        <v-toolbar-title  class="mx-2 font-weight-medium">Healthy first</v-toolbar-title>
+        <v-toolbar-title class="mx-2 font-weight-medium text-uppercase">Healthy first</v-toolbar-title>
 
         <language></language>
         <nofitication></nofitication>
@@ -21,16 +20,18 @@
 
       <v-navigation-drawer
           v-model="drawer"
-          fixed
+          class="position-fixed overflow-y-auto"
+          app
+          height="100vh"
           width="300"
       >
         <side-bar></side-bar>
       </v-navigation-drawer>
 
       <v-main>
-        <v-container>
-          <router-view></router-view>
-        </v-container>
+        <div>
+            <router-view></router-view>
+        </div>
       </v-main>
       <CFooter></CFooter>
     </v-layout>
@@ -43,8 +44,10 @@ import ProfileMenu from "@/components/ProfileMenu";
 import CFooter from "@/components/layouts/CFooter";
 import Language from "@/components/Language";
 import AddUser from "@/views/Manager/AddUser";
+import {Calendar} from "v-calendar";
+import {mapState} from "vuex";
 export default {
-  components: {AddUser, Language, CFooter, ProfileMenu, SideBar, LogoApp},
+  components: {AddUser, Language, CFooter, ProfileMenu, SideBar, LogoApp, Calendar},
   data: () => ({
     drawer: true,
     group: null,
@@ -66,7 +69,7 @@ export default {
             this.errors = "Invalid";
             console.log(error);
           })
-    }
+    },
   }
 }
 </script>

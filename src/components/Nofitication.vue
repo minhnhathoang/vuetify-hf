@@ -60,7 +60,6 @@ export default {
 <style>
 .nofi {
   transform: translate(-230px, 7px);
-
 }
 
 </style>

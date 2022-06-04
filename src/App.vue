@@ -18,7 +18,6 @@ export default {
   },
   setup() {
     const resolveLayout = computed(() => {
-      console.log("ZZZL" + router.currentRoute.value.meta.layout);
       if (router.currentRoute.value.meta.layout === 'blank' || router.currentRoute.value.meta.layout === undefined) return 'auth-layout';
       return 'dashboard-layout'
     })

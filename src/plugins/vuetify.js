@@ -11,7 +11,7 @@ const myCustomLightTheme = {
         primary: '#3f51b5',
         secondary: '#8a8d93',
         accent: '#0d6efd',
-        error: '#ff4c51',
+        error: '#e01f3d',
         info: '#16b1ff',
         success: '#56ca00',
         warning: '#ffb400',

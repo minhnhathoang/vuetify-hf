@@ -8,6 +8,7 @@ import {loadFonts} from './plugins/webfontloader'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
+import { SetupCalendar } from 'v-calendar';
 
 
 loadFonts();
@@ -19,9 +20,12 @@ axios.interceptors.request.use(config => {
     return config;
 });
 
+import 'v-calendar/dist/style.css';
+
 createApp(App)
     .use(router)
     .use(store)
     .use(vuetify)
     .use(VueAxios, axios)
+    .use(SetupCalendar, {componentPrefix: 'vc',})
     .mount('#app')

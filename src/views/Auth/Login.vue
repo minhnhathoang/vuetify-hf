@@ -1,94 +1,91 @@
 <template>
   <v-row align="center" justify="center">
     <v-card max-width="400" class="mx-auto my-10 w-100">
-      <v-card-title class="d-flex flex-column py-7">
+      <v-card-title class="d-flex flex-column pt-10">
         <logo-app class="w-25 mb-10"></logo-app>
-          <h2 class="text-2xl mb-5 text-primary">
-<!--            healthy first-->
-            Login
-          </h2>
+        <h2 class="text-2xl text-primary">
+          <!--            healthy first-->
+          Login
+        </h2>
       </v-card-title>
 
       <v-card-text>
         <p class="text-2xl font-weight-semibold text--primary mb-2">
-          Welcome to healthy-first! 👋
+          <!--          Welcome to healthy-first! 👋-->
         </p>
         <p class="mb-2">
           Please sign-in to your account.
         </p>
       </v-card-text>
-
+      <v-form>
       <v-card-text>
-        <v-form>
           <v-text-field
               v-model="email"
               type="email"
               label="Email" append-inner-icon="mdi-email"
-                        placeholder="john@example.com"
-                        variant="outlined"
-              style=""
-                        density="compact"/>
+              placeholder="john@example.com"
+              variant="outlined"
+              :rules="emailRules"
+              density="compact"/>
           <v-text-field
               v-model="password"
               type="password"
               label="Password" append-inner-icon="mdi-lock"
-                        variant="outlined"
-                        density="compact"
+              variant="outlined"
+              :rules="passwordRules"
+              density="compact"
           />
-<!--          <v-alert v-if="errors" type="error">-->
-<!--            {{ errors}}-->
-<!--          </v-alert>-->
-
-
-
-          <div class="d-flex align-center justify-space-between flex-wrap">
-            <v-checkbox
-                label="Remember Me"
-                hide-details
-                class="me-3 mt-1"
-                color="primary"
-            >
-            </v-checkbox>
-
-            <router-link
-                to="/forgot-password"
-                class="mt-1 text-decoration-none"
-            >
-              Forgot Password?
-            </router-link>
-          </div>
-
+        <v-alert v-if="errors != null" color="error" variant="text-">{{errors}}</v-alert>
+      </v-card-text>
+        <v-btn size="small" flat class="float-right me-5 mb-2" to="/forgot-password">
+          Forgot password?
+        </v-btn>
+        <v-card-text>
           <v-btn
               block
               color="primary"
-              class="mt-6"
               @click="login"
           >
             Login
           </v-btn>
-        </v-form>
-      </v-card-text>
-      <v-divider></v-divider>
+        </v-card-text>
+      </v-form>
     </v-card>
-    </v-row>
+  </v-row>
 </template>
 
 
 <script>
 import LogoApp from "@/components/LogoApp";
 
+
 export default {
   components: {LogoApp},
   name: "LoginView",
   data: () => ({
-    email: '',
-    password: '',
+    email: null,
+    password: null,
+    errors: null,
+
+    emailRules: [
+      v => !!v || 'The email field is required.',
+      v => {
+        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        return pattern.test(v) || 'The email must be a valid email address.'
+      },
+    ],
+    passwordRules: [
+        v => !!v || 'The password field is required.',
+        v => (v || '').length >= 8 || 'The password field must be at least 8 characters.',
+    ]
   }),
   methods: {
     login() {
-      this.$store.dispatch("login", {
+      this.$store.dispatch("account/login", {
         email: this.email,
         password: this.password,
+      }).catch(error => {
+        this.errors = error;
       });
     }
   }
@@ -100,7 +97,7 @@ export default {
 /* https://github.com/vuetifyjs/vuetify/issues/5269 */
 
 @-webkit-keyframes autofill {
-  0%,100% {
+  0%, 100% {
     color: inherit;
     background: transparent;
   }

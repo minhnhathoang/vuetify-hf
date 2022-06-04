@@ -2,11 +2,29 @@ import axios from "axios";
 import router from "@/router";
 
 export default {
+    namespaced: true,
     state: {
-        token: null,
-        errors: null
+        token: localStorage.getItem('accessToken'),
+        errors: null,
+
+        user: {
+            id: null,
+            full_name: null,
+            first_name: null,
+            surname: null,
+            last_name: null,
+            email: null,
+            role: null,
+            avatar: null,
+            mobile: null,
+            gender: null,
+            birthday: null,
+            joined_on: null
+        }
     },
-    getters: {},
+    getters: {
+        user: state => state.user,
+    },
     mutations: {
         setToken(state, token) {
             state.token = token;
@@ -17,39 +35,46 @@ export default {
         setErrors(state, errors) {
             state.errors = errors;
         },
+        setUser(state, user) {
+            state.user = user;
+        }
     },
     actions: {
         login: ({commit}, loginData) => {
-            axios.post('/login', loginData)
-                .then(response => {
-                    localStorage.setItem('accessToken', response.data.token);
-                    commit('setToken', response.data.token);
-                    commit('setErrors', null);
-                    axios.defaults.headers.common['Authorization'] = response.data.token;
-                    router.push('/');
-                })
-                .catch(error => {
-                    commit('setToken', null);
-                    commit('setErrors', error.response.data.error);
-                });
-        },
-
-        REGISTER: ({commit}, payload) => {
             return new Promise((resolve, reject) => {
-                axios
-                    .post('/register', payload)
-                    .then(({data, status}) => {
-                        if (status === 200) {
-                            commit('setToken', data.token);
-                            router.push('/');
-                        }
+                axios.post('/login', loginData)
+                    .then(response => {
+                        localStorage.setItem('accessToken', response.data.token);
+                        commit('setToken', response.data.token);
+                        commit('setErrors', null);
+                        axios.defaults.headers.common['Authorization'] = response.data.token;
+                        router.push('/');
                     })
                     .catch(error => {
-                        reject(error);
-                    });
-                ;
-            });
+                        commit('setToken', null);
+                        commit('setErrors', error.response.data.error);
+                        console.log(error);
+                        reject(error.response.data.message);
+                    })
+            })
         },
+
+        // REGISTER: ({commit}, payload) => {
+        //     return new Promise((resolve, reject) => {
+        //         axios
+        //             .post('/register', payload)
+        //             .then(({data, status}) => {
+        //                 if (status === 200) {
+        //                     commit('setToken', data.token);
+        //                     router.push('/');
+        //                 }
+        //             })
+        //             .catch(error => {
+        //                 reject(error);
+        //             });
+        //         ;
+        //     });
+        // },
 
         logout: ({commit}) => {
             axios.post('/logout')
@@ -62,7 +87,54 @@ export default {
                 .catch(error => {
                     console.log(error);
                 });
-            ;
         },
+
+        getUser: ({commit}) => {
+            return new Promise((resolve, reject) => {
+                 axios.get('/user')
+                    .then(response => {
+                        commit('setUser', response.data.data[0]);
+                        console.log(response);
+                        resolve();
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        reject(error.response.data.message);
+                    })
+            })
+        },
+
+        updateProfile: ({commit, getters}, payload) => {
+            return new Promise((resolve, reject) => {
+                let user = getters.user
+                axios.post('/user/profile/edit/' + user.id, payload, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                })
+                    .then(response => {
+                        console.log(response);
+                        resolve();
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        reject(error.response.data.message);
+                    })
+            })
+        },
+
+        changePassword: ({commit}, payload) => {
+            return new Promise((resolve, reject) => {
+                axios.post('/password/change', payload)
+                    .then(response => {
+                        console.log(response);
+                        resolve(response);
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        reject(error.response.data.message);
+                    })
+            })
+        }
     }
 }

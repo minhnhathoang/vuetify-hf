@@ -1,10 +1,12 @@
 <template>
-  DashBoard
+  <setting></setting>
 </template>
 
 <script>
+import Setting from "@/views/Setting";
 export default {
-  name: "DashBoard"
+  name: "DashBoard",
+  components: {Setting}
 }
 </script>
 

@@ -1,6 +1,6 @@
 <template>
     <v-row align="center" justify="center">
-        <v-card max-width="400" elevation="1" class="mx-auto text-center pa-10">
+        <v-card max-width="400" elevation="1" class="mx-auto pa-10">
           <logo-app class="mb-10"></logo-app>
           <div class="text-left mb-10">
             <h2 class="mb-5">Forgot password? </h2>
@@ -10,14 +10,13 @@
             <v-text-field
                 v-model="email"
                 type="email"
-                append-inner-icon="mdi-email"
                 placeholder="john@example.com"
+                :rules="emailRules"
+                :error-messages="errors"
                 variant="outlined"
                 density="compact"/>
-            <router-link to="/enter-security-code" class="d-flex text-decoration-none text-primary ">
-            <v-btn class="rounded-0 mb-8" color="primary" x-large block dark>
-              Send reset link</v-btn>
-            </router-link>
+            <v-btn class="rounded-0 mb-8" color="primary" x-large block @click="findEmail">
+              Find</v-btn>
           </v-form>
 
           <v-btn elevation="0">
@@ -32,9 +31,35 @@
 
 <script>
 import LogoApp from "@/components/LogoApp";
+import axios from "axios";
+import router from "@/router";
 export default {
   name: "ForgotPassword",
-  components: {LogoApp}
+  components: {LogoApp},
+  data: () => ({
+    email: null,
+    errors: "",
+
+    emailRules: [
+      v => !!v || 'The email field is required.'
+    ]
+  }),
+  methods: {
+    findEmail() {
+      let email = this.email;
+      axios.post('/forgot-password', {email: this.email})
+          .then(response => {
+            this.$router.push({name: 'EnterSecurityCode', params: { email: this.email } });
+          })
+          .catch(error => {
+            this.errors = error;
+            this.errors = error.response.data.message;
+            if (error.response.data.message.email[0] != null) {
+              this.errors = error.response.data.message.email[0];
+            }
+          })
+    }
+  }
 }
 </script>
 

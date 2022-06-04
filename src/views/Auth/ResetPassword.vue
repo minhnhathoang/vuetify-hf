@@ -15,17 +15,20 @@
             color="primary"
             density="compact"/>
         <v-text-field
-            v-model="password"
+            v-model="password_confirmation"
             type="password"
             label="Confirm password" append-inner-icon="mdi-lock"
             variant="outlined"
             color="primary"
             density="compact"/>
+
+        <div class="text-error">{{this.errors}}</div>
       </v-form>
       <v-btn
           block
           color="primary"
           class="mt-6"
+          @click="resetPassword"
       >
         Submit
       </v-btn>
@@ -35,8 +38,34 @@
 
 <script>
 import LogoApp from "@/components/LogoApp";
+import axios from "axios";
 export default {
-  components: {LogoApp}
+  components: {LogoApp},
+  data: () => ({
+    password: null,
+    password_confirmation: null,
+    errors: null,
+  }),
+  props: {
+    email: null,
+    token: null
+  },
+  methods: {
+    resetPassword() {
+      axios.post('/reset-password', {
+        email: this.email,
+        token: this.token,
+        password: this.password,
+        password_confirmation: this.password_confirmation
+      })
+          .then(response => {
+            this.$router.push('/login');
+          })
+          .catch(error => {
+            this.errors = error.response.data.message;
+          })
+    }
+  }
 }
 </script>
 

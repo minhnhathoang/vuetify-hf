@@ -72,6 +72,7 @@ export default {
   data: () => ({
     items: [
       {text: 'Dashboard', icon: 'mdi-view-dashboard-outline', link: '/'},
+      {text: 'Calender', icon: 'mdi-calendar-month-outline', link: '/calendar'},
     ],
     userManagement: [
       ['User list', 'mdi-account-multiple-outline', '/user/list'],

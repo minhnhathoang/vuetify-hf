@@ -91,17 +91,11 @@
               hide-overlay
               persistent
           >
-            <v-card
-                color="primary"
-            >
-              <v-card-text>
-                Please wait
-                <v-progress-linear
+                <v-progress-circular
+                    color="primary"
                     indeterminate
-                    color="white"
-                ></v-progress-linear>
-              </v-card-text>
-            </v-card>
+                    :size="50"
+                ></v-progress-circular>
           </v-dialog>
     </v-card-actions>
   </v-card>
