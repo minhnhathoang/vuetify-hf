@@ -174,7 +174,7 @@
 
     <v-card-text>
       <v-table fixed-header>
-        <thead class="">
+        <thead class="text-uppercase text-primary">
         <tr>
           <th>No</th>
           <th v-for="column in columns" scope="col" @click="updateSortColumn(column)" class="text-no-wrap">

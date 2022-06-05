@@ -26,31 +26,82 @@
         <thead class="text-uppercase text-primary">
         <tr>
           <th>No</th>
-          <th v-for="column in columns" scope="col" @click="updateSortColumn(column)" class="text-no-wrap">
-            {{column}}
-            <span v-if="column === sortField">
-          <v-icon v-if="sortOrder === 'asc'">mdi-arrow-down</v-icon>
-          <v-icon v-else>mdi-arrow-up</v-icon>
+
+<!--          <th v-for="column in columns" scope="col" @click="updateSortColumn(column)" class="text-no-wrap">-->
+<!--            {{ column }}-->
+<!--            <span v-if="column === sortField">-->
+<!--              <v-icon v-if="sortOrder === 'asc'">mdi-arrow-down</v-icon>-->
+<!--              <v-icon v-else>mdi-arrow-up</v-icon>-->
+<!--            </span>-->
+<!--          </th>-->
+
+          <th scope="col" @click="updateSortColumn('name')" class="text-no-wrap">
+            Name of food establishment
+            <span v-if="'name' === sortField">
+              <v-icon v-if="sortOrder === 'asc'">mdi-arrow-down</v-icon>
+              <v-icon v-else>mdi-arrow-up</v-icon>
             </span>
           </th>
+
+          <th scope="col" @click="updateSortColumn('owner')" class="text-no-wrap">
+            Owner
+            <span v-if="'owner' === sortField">
+              <v-icon v-if="sortOrder === 'asc'">mdi-arrow-down</v-icon>
+              <v-icon v-else>mdi-arrow-up</v-icon>
+            </span>
+          </th>
+
+          <th scope="col" @click="updateSortColumn('kind_of_business')" class="text-no-wrap">
+            Kind of business
+            <span v-if="'kind_of_business' === sortField">
+              <v-icon v-if="sortOrder === 'asc'">mdi-arrow-down</v-icon>
+              <v-icon v-else>mdi-arrow-up</v-icon>
+            </span>
+          </th>
+
+          <th scope="col" @click="updateSortColumn('address')" class="text-no-wrap">
+            Address
+            <span v-if="'address' === sortField">
+              <v-icon v-if="sortOrder === 'asc'">mdi-arrow-down</v-icon>
+              <v-icon v-else>mdi-arrow-up</v-icon>
+            </span>
+          </th>
+
+          <th scope="col" @click="updateSortColumn('certificates.registration_number')" class="text-no-wrap">
+            Reg. No
+            <span v-if="'certificates.registration_number' === sortField">
+              <v-icon v-if="sortOrder === 'asc'">mdi-arrow-down</v-icon>
+              <v-icon v-else>mdi-arrow-up</v-icon>
+            </span>
+          </th>
+
         </tr>
         </thead>
         <tbody>
         <tr v-if="tableData.length === 0">No Records found</tr>
 
         <tr v-for="(data, index) in tableData" v-else>
-          <td class="text-primary">{{index + perPage * (page - 1)}}</td>
+          <td class="text-primary" @click="getEstablishmentDetails(data['id'])">{{index + perPage * (page - 1)}}</td>
           <td>{{ data['name'] }}</td>
           <td>{{ data['owner'] }}</td>
+          <td>{{ data['kind_of_business'] }}</td>
           <td>{{ data['address'] }}</td>
-          <td>{{ data['telephone'] }}</td>
-          <td>{{ data.certificates}}</td>
+          <td v-if="data['certificate']" class="text-success font-weight-bold">
+            <v-chip size="small" class="font-weight-bold" color="error" v-if="data['certificate']['is_revoked']">
+              #{{ data['certificate']['registration_number']}} Revoked
+            </v-chip>
+            <v-chip size="small" class="font-weight-bold" color="secondary" v-else-if="data['certificate']['is_expired']">
+              #{{ data['certificate']['registration_number']}} Expried
+            </v-chip>
+            <v-chip size="small" class="font-weight-bold" color="success" v-else>
+              #{{ data['certificate']['registration_number']}} Active
+            </v-chip>
+          </td>
+          <td v-else></td>
         </tr>
 
         </tbody>
       </v-table>
-
-      {{Object.keys(tableData)[0]}}
     </v-card-text>
 
     <v-card-actions>
@@ -73,12 +124,9 @@
       ></v-pagination>
     </v-card-actions>
   </v-card>
-
-  <v-btn @click="getEstablishmentDetails">dwadw</v-btn>
 </template>
 
 <script>
-
 import axios from "axios";
 
 export default {
@@ -91,10 +139,11 @@ export default {
       perPage: 10,
       page: 1,
       pagination: {to: 1, from: 1},
+      sortField: 'kind_of_business',
+      // sortField: 'registration_number',
 
       url: "http://localhost:8000/api/establishments",
-      columns: ['Name of food establishment', 'Owner', 'Address', 'Telephone', 'Reg. No'],
-      sortField: null,
+      columns: ['Name of food establishment', 'Owner',  'Kind of business', 'Address', 'Reg. No'],
     }
   },
   created() {
@@ -102,7 +151,6 @@ export default {
   },
   methods: {
     async fetchData() {
-      console.log('TEST' + this.perPage);
       try {
         const params = {
           sort_field: this.sortField,
@@ -141,16 +189,16 @@ export default {
     handlePageChange() {
       this.fetchData()
     },
-
-    getEstablishmentDetails() {
-      axios.get('/users')
-          .then(response => {
-            this.$router.push({name: 'EstablishmentDetails', params: { id: "ddfdfd" } });
-          })
-          .catch(error => {
-
-          })
+    getEstablishmentDetails(id) {
+      this.$router.push({name: 'EstablishmentDetails', params: { id: id } });
     }
   },
 }
 </script>
+
+<style scoped>
+.v-table >>> th {
+  font-size: 0.8rem !important;
+  background-color: #fafafa !important;
+}
+</style>

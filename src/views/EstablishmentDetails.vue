@@ -1,6 +1,6 @@
 <template>
-  {{this.id}}
-  {{this.info}}
+
+  {{this.establishment}}
 
 <!--  <v-card>-->
 
@@ -153,20 +153,18 @@ import axios from "axios";
 export default {
   data () {
     return {
-      info: null
+      id: this.$route.params.id,
+      establishment: null
     }
-  },
-  props: {
-    id: null
   },
   created() {
     this.getEstablishmentDetails();
   },
   methods: {
     getEstablishmentDetails() {
-      axios.get('/users')
+      axios.get('/establishment/details/' + this.id)
           .then(response => {
-            this.info = response.data;
+            this.establishment = response.data;
           })
           .catch(error => {
 
