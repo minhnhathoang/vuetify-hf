@@ -22,12 +22,12 @@
 
 
     <v-card-text>
-      <v-table fixed-header density="compact" >
-        <thead>
+      <v-table fixed-header>
+        <thead class="text-uppercase text-primary">
         <tr>
           <th>No</th>
           <th v-for="column in columns" scope="col" @click="updateSortColumn(column)" class="text-no-wrap">
-            {{ column.toUpperCase().replace('_', ' ') }}
+            {{column}}
             <span v-if="column === sortField">
           <v-icon v-if="sortOrder === 'asc'">mdi-arrow-down</v-icon>
           <v-icon v-else>mdi-arrow-up</v-icon>
@@ -37,32 +37,24 @@
         </thead>
         <tbody>
         <tr v-if="tableData.length === 0">No Records found</tr>
+
         <tr v-for="(data, index) in tableData" v-else>
-          <td class="text-primary">
-            <a @click="getUserDetails(data['id'])">{{index + perPage * (page - 1)}}</a>
-          </td>
-          <td><v-avatar rounded size="100">
-            <v-img :src="data['avatar']"></v-img>
-          </v-avatar></td>
-          <td v-for="column in columns">{{ data[column] }}</td>
+          <td class="text-primary">{{index + perPage * (page - 1)}}</td>
+          <td>{{ data['name'] }}</td>
+          <td>{{ data['owner'] }}</td>
+          <td>{{ data['address'] }}</td>
+          <td>{{ data['telephone'] }}</td>
+          <td>{{ data.certificates}}</td>
         </tr>
+
         </tbody>
       </v-table>
+
+      {{Object.keys(tableData)[0]}}
     </v-card-text>
 
     <v-card-actions>
       <div class="ml-3 text-primary">
-<!--        <div class="text-caption text-no-wrap text-primary">Rows per page</div>-->
-<!--        <v-select-->
-<!--            transition-->
-<!--            :items="pageOptions"-->
-<!--            v-model="perPage"-->
-<!--            @update:modelValue="handlePerPage"-->
-<!--            density="compact"-->
-<!--            variant="plain"-->
-<!--            rounded-->
-<!--            menu-icon=""-->
-<!--        ></v-select>-->
         <label class="mt-2 mr-2 text-caption text-sm-start text-no-wrap" for="pageOption">Rows per page</label>
         <select v-model="perPage" id="pageOption" class="bg-white" @change="handlePerPage">
           <option v-for="page in pageOptions" :key="page" :value="page">{{ page }}</option>
@@ -81,33 +73,31 @@
       ></v-pagination>
     </v-card-actions>
   </v-card>
+
+  <v-btn @click="getEstablishmentDetails">dwadw</v-btn>
 </template>
 
 <script>
 
 import axios from "axios";
-import router from "@/router";
 
 export default {
-  name: 'DataTable',
   data() {
     return {
       tableData: [],
-      sortField: this.columns[0],
       sortOrder: 'asc',
       search: null,
       pageOptions: [5, 10, 20, 50],
       perPage: 10,
       page: 1,
       pagination: {to: 1, from: 1},
+
+      url: "http://localhost:8000/api/establishments",
+      columns: ['Name of food establishment', 'Owner', 'Address', 'Telephone', 'Reg. No'],
+      sortField: null,
     }
   },
-  props: {
-    url: {type: String, required: true},
-    columns: {type: Array, required: true},
-  },
   created() {
-
     this.fetchData()
   },
   methods: {
@@ -115,7 +105,7 @@ export default {
       console.log('TEST' + this.perPage);
       try {
         const params = {
-          sort_field: this.sortField === 'full_name' ? 'first_name' : this.sortField,
+          sort_field: this.sortField,
           sort_order: this.sortOrder,
           search: this.search,
           per_page: this.perPage,
@@ -152,8 +142,14 @@ export default {
       this.fetchData()
     },
 
-    getUserDetails(id) {
-      router.push({name: 'UserDetails', params: { id: id } });
+    getEstablishmentDetails() {
+      axios.get('/users')
+          .then(response => {
+            this.$router.push({name: 'EstablishmentDetails', params: { id: "ddfdfd" } });
+          })
+          .catch(error => {
+
+          })
     }
   },
 }

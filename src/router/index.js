@@ -14,9 +14,11 @@ import EnterSecurityCode from "@/views/Auth/EnterSecurityCode";
 import FormAddUser from "@/views/FormAddUser";
 import DashBoard from "@/views/DashBoard";
 import UserList from "@/views/UserList";
-import ProfileUser from "@/views/ProfileUser";
+import UserDetails from "@/views/UserDetails";
 import Setting from "@/views/Setting";
 import CCalendar from "@/components/CCalendar";
+import EstablishmentList from "@/views/EstablishmentList";
+import EstablishmentDetails from "@/views/EstablishmentDetails";
 
 
 const routes = [
@@ -48,6 +50,8 @@ const routes = [
       },
     ]
   },
+
+// Dashboard
   {
     path: '/',
     meta: {
@@ -55,6 +59,25 @@ const routes = [
     },
     name: 'DashBoard',
     component: DashBoard
+  },
+
+    // User
+
+  {
+    path: '/user/list',
+    meta: {
+      layout: 'layout'
+    },
+    name: 'UserList',
+    component: UserList
+  },
+  {
+    path: '/user/details/:id',
+    meta: {
+      layout: 'layout'
+    },
+    name: 'UserDetails',
+    component: UserDetails
   },
   {
     path: '/user/add',
@@ -64,22 +87,26 @@ const routes = [
     name: 'FormAddUser',
     component: FormAddUser
   },
+
+    // Establishment
   {
-    path: '/user/view',
+    path: '/establishment/list',
     meta: {
       layout: 'layout'
     },
-    name: 'UserView',
-    component: ProfileUser
+    name: 'EstablishmentList',
+    component: EstablishmentList
   },
   {
-    path: '/user/list',
+    path: '/establishment/details/:id',
     meta: {
       layout: 'layout'
     },
-    name: 'UserList',
-    component: UserList
+    name: 'EstablishmentDetails',
+    component: EstablishmentDetails
   },
+
+
   {
     path: '/account/setting',
     meta: {

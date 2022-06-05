@@ -26,7 +26,7 @@
       >
         <v-card elevation="0" class="ma-sm-5">
           <v-card-content class="d-flex align-center">
-            <v-avatar color="primary" size="140" rounded="0">
+            <v-avatar size="140" rounded="0">
               <v-img :src="form.avatar" height="100%" cover></v-img>
             </v-avatar>
             <div class="px-3 align-self-end">
@@ -52,7 +52,7 @@
                   type="file"
                   @change="onFileChanged"
               >
-              <div class="text-caption text-high-emphasis pa-2 hidden-sm-and-down">Allowed JPG, GIF or PNG</div>
+              <div class="text-caption text-high-emphasis pa-2">Allowed JPG, GIF or PNG</div>
             </div>
 
           </v-card-content>
@@ -197,7 +197,6 @@ export default {
       },
 
       snackbar: false,
-      text: 'My timeout is set to 2000.',
       timeout: 2000,
     }
   },

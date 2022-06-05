@@ -27,10 +27,17 @@
             </v-list-item>
 
 
+            <v-list-item to="/account/setting" class="mt-2 elevation-0">
+              <v-icon class="mr-3">mdi-cog-outline</v-icon>
+              <v-list-item-title >Setting</v-list-item-title>
+            </v-list-item>
+
+
             <v-list-item @click="logout" class="border-t mt-3">
               <v-icon class="mr-3">mdi-logout</v-icon>
               <v-list-item-title>Logout</v-list-item-title>
             </v-list-item>
+
           </v-list>
         </v-menu>
   </div>
@@ -44,12 +51,14 @@ export default {
   data: () => ({
     items: [
       { text: 'Profile', icon: 'mdi-account-outline' },
-      { text: 'Setting', icon: 'mdi-cog-outline' },
       { text: 'Help & Support', icon: 'mdi-help-circle-outline' },
     ],
   }),
   computed: {
     ...mapState('account', ['user'])
+  },
+  created() {
+    this.$store.dispatch('account/getUser');
   },
   methods: {
     logout() {

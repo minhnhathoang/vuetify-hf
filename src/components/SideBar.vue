@@ -18,7 +18,7 @@
     <!--    User Management-->
     <v-list-group>
       <template v-slot:activator="{ props }">
-        <v-list-item v-bind="props" title="User Management" active-color="primary"
+        <v-list-item v-bind="props" title="User" active-color="primary"
                      prepend-icon="mdi-account-group-outline"></v-list-item>
       </template>
       <v-list-item
@@ -31,10 +31,25 @@
       ></v-list-item>
     </v-list-group>
 
+    <v-list-group>
+      <template v-slot:activator="{ props }">
+        <v-list-item v-bind="props" title="Establishment" active-color="primary"
+                     prepend-icon="mdi-clipboard-search-outline"></v-list-item>
+      </template>
+
+      <v-list-item
+          v-for="([title, icon], i) in establishment"
+          :key="i"
+          :value="title"
+          :title="title"
+          active-color="primary"
+      ></v-list-item>
+    </v-list-group>
+
     <!--    Certifies Management-->
     <v-list-group>
       <template v-slot:activator="{ props }">
-        <v-list-item v-bind="props" title="Certifies Management" active-color="primary"
+        <v-list-item v-bind="props" title="Certifies" active-color="primary"
                      prepend-icon="mdi-clipboard-search-outline"></v-list-item>
       </template>
 
@@ -76,7 +91,12 @@ export default {
     ],
     userManagement: [
       ['User list', 'mdi-account-multiple-outline', '/user/list'],
-      ['User view', 'mdi-cog-outline', '/user/view'],
+      ['User search', 'mdi-cog-outline', '/user/view'],
+      ['Add new user', 'mdi-cog-outline', '/user/add'],
+    ],
+    establishment: [
+      [' list', 'mdi-account-multiple-outline', '/user/list'],
+      ['Establishment details', 'mdi-cog-outline', '/user/view'],
       ['Add new user', 'mdi-cog-outline', '/user/add'],
     ],
     certifies: [
