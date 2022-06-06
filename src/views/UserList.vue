@@ -190,7 +190,9 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-if="tableData.length === 0">No Records found</tr>
+        <tr v-if="tableData.length === 0" class="text-error">
+          <td colspan="6" class="text-center">No Records found</td>
+        </tr>
         <tr v-for="(data, index) in tableData" v-else>
           <td class="text-primary">
             <a @click="getUserDetails(data['id'])">{{ index + perPage * (page - 1) }}</a>

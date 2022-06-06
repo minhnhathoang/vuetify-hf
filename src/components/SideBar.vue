@@ -34,14 +34,15 @@
     <v-list-group>
       <template v-slot:activator="{ props }">
         <v-list-item v-bind="props" title="Establishment" active-color="primary"
-                     prepend-icon="mdi-clipboard-search-outline"></v-list-item>
+                     prepend-icon="mdi-warehouse"></v-list-item>
       </template>
 
       <v-list-item
-          v-for="([title, icon], i) in establishment"
+          v-for="([title, icon, link], i) in establishment"
           :key="i"
           :value="title"
           :title="title"
+          :to="link"
           active-color="primary"
       ></v-list-item>
     </v-list-group>
@@ -90,14 +91,11 @@ export default {
       {text: 'Calender', icon: 'mdi-calendar-month-outline', link: '/calendar'},
     ],
     userManagement: [
-      ['User list', 'mdi-account-multiple-outline', '/user/list'],
-      ['User search', 'mdi-cog-outline', '/user/view'],
+      ['User List', 'mdi-account-multiple-outline', '/user/list'],
       ['Add new user', 'mdi-cog-outline', '/user/add'],
     ],
     establishment: [
-      [' list', 'mdi-account-multiple-outline', '/user/list'],
-      ['Establishment details', 'mdi-cog-outline', '/user/view'],
-      ['Add new user', 'mdi-cog-outline', '/user/add'],
+      ['Establishment List', 'mdi-google-my-business-outline', '/establishment/list'],
     ],
     certifies: [
       ['List', 'mdi-account-multiple-outline'],

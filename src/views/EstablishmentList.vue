@@ -78,11 +78,13 @@
         </tr>
         </thead>
         <tbody>
-        <tr v-if="tableData.length === 0">No Records found</tr>
+        <tr v-if="tableData.length === 0" class="text-error">
+          <td colspan="6" class="text-center">No Records found</td>
+        </tr>
 
         <tr v-for="(data, index) in tableData" v-else>
           <td class="text-primary" @click="getEstablishmentDetails(data['id'])">{{index + perPage * (page - 1)}}</td>
-          <td>{{ data['name'] }}</td>
+          <td class="font-weight-medium">{{ data['name'] }}</td>
           <td>{{ data['owner'] }}</td>
           <td>{{ data['kind_of_business'] }}</td>
           <td>{{ data['address'] }}</td>
@@ -139,7 +141,7 @@ export default {
       perPage: 10,
       page: 1,
       pagination: {to: 1, from: 1},
-      sortField: 'kind_of_business',
+      sortField: 'name',
       // sortField: 'registration_number',
 
       url: "http://localhost:8000/api/establishments",

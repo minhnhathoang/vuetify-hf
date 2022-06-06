@@ -1,11 +1,5 @@
 <template>
-
-
   <div class="text-center section">
-    <h2>Custom Calendars</h2>
-    <p class="mb-6">
-      Roll your own calendars using scoped slots
-    </p>
     <calendar
         class="custom-calendar"
         :masks="masks"
@@ -101,7 +95,7 @@ export default {
             title: 'Cookout with friends.',
             class: 'bg-orange-500 text-white',
           },
-          dates: { months: 5, ordinalWeekdays: { 2: 1 } },
+          dates: {months: 5, ordinalWeekdays: {2: 1}},
         },
         {
           key: 7,
@@ -141,6 +135,60 @@ $weekday-border: 1px solid #eaeaea;
 }
 
 .custom-calendar.vc-container {
+  border: 1px solid #b8c2cc;
+  border-highlight: 1px solid #b8c2cc;
+  width: 90px;
+  height: 90px;
+  background: #f8fafc;
+  border: 1px solid #eaeaea;
+  border-radius: 0;
+  width: 100%;
+  border-radius: 0;
+  width: 100%;
 
-border: 1px solid #b8c2cc;border-highlight: 1px solid #b8c2cc; width: 90px; height: 90px; background: #f8fafc; border: 1px solid #eaeaea; border-radius: 0; width: 100%; border-radius: 0; width: 100%; .vc-header { background-color: #f1f5f8; padding: 10px 0; } .vc-weeks { padding: 0; } .vc-weekday { background-color: $weekday-bg; border-bottom: $weekday-border; border-top: $weekday-border; padding: 5px 0; } .vc-day { padding: 0 5px 3px 5px; text-align: left; min-height: $day-height; min-width: $day-width; overflow: auto; background-color: white; .weekday-1, .weekday-7 { background-color: #eff8ff; } &:not(.on-bottom) { border-bottom: $day-border; &.weekday-1 { border-bottom: $day-border-highlight; } } &:not(.on-right) { border-right: $day-border; } } .vc-day-dots { margin-bottom: 5px; }
-} </style>
+  .vc-header {
+    background-color: #f1f5f8;
+    padding: 10px 0;
+  }
+
+  .vc-weeks {
+    padding: 0;
+  }
+
+  .vc-weekday {
+    background-color: $weekday-bg;
+    border-bottom: $weekday-border;
+    border-top: $weekday-border;
+    padding: 5px 0;
+  }
+
+  .vc-day {
+    padding: 0 5px 3px 5px;
+    text-align: left;
+    min-height: $day-height;
+    min-width: $day-width;
+    overflow: auto;
+    background-color: white;
+
+    .weekday-1, .weekday-7 {
+      background-color: #eff8ff;
+    }
+
+    &:not(.on-bottom) {
+      border-bottom: $day-border;
+
+      &.weekday-1 {
+        border-bottom: $day-border-highlight;
+      }
+    }
+
+    &:not(.on-right) {
+      border-right: $day-border;
+    }
+  }
+
+  .vc-day-dots {
+    margin-bottom: 5px;
+  }
+}
+</style>
