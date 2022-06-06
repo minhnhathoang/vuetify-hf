@@ -1,19 +1,25 @@
 <template>
   <div>
     <v-btn
-        @click.stop="language = !language"
-        icon
+        @click="toggleTheme"
     >
-      {{language ? "vi" : "en"}}
     </v-btn>
 
   </div>
 </template>
 
 <script>
+import { useTheme } from 'vuetify'
 export default {
-  data: () => ({
-    language: false,
-  }),
+  setup () {
+    const theme = useTheme()
+    return {
+      theme,
+      toggleTheme: () => {
+        theme.themes.dark = !theme.themes.dark;
+        console.log(theme.current);
+      }
+    }
+  }
 }
 </script>

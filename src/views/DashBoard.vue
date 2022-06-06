@@ -1,5 +1,11 @@
 <template>
-  <setting></setting>
+  <v-container>
+    <v-card>
+      <v-card-header>
+        <v-card-title>Dashboard</v-card-title>
+      </v-card-header>
+    </v-card>
+  </v-container>
 </template>
 
 <script>

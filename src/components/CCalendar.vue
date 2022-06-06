@@ -1,20 +1,18 @@
 <template>
-  <div class="text-center section">
+  <v-container fluid>
     <calendar
         class="custom-calendar"
         :masks="masks"
         :attributes="attributes"
-        disable-page-swipe
-        is-expanded
     >
       <template v-slot:day-content="{ day, attributes }">
         <div>
-          <span class="day-label text-sm text-gray-900">{{ day.day }}</span>
-          <div class="overflow-y-auto overflow-x-auto">
+          <div class="font-weight-bold text-primary ma-3">{{ day.day }}</div>
+          <div class="">
             <p
                 v-for="attr in attributes"
                 :key="attr.key"
-                class="rounded-sm p-1 mt-0 mb-1 mx-1 px-2"
+                class="rounded-lg p-1 mt-0 mb-1 mx-1 px-2"
                 :class="attr.customData.class"
             >
               {{ attr.customData.title }}
@@ -23,14 +21,18 @@
         </div>
       </template>
     </calendar>
-  </div>
+  </v-container>
 </template>
 
 <script>
 import {Calendar} from "v-calendar";
+import SideBar from "@/components/SideBar";
+import AddUser from "@/views/FormAddUser";
 
 export default {
   components: {
+    AddUser,
+    SideBar,
     Calendar
   },
   data() {
@@ -45,9 +47,9 @@ export default {
           key: 1,
           customData: {
             title: 'Lunch with mom.',
-            class: 'bg-primary',
+            class: 'bg-info',
           },
-          dates: new Date(year, month, 1),
+          dates: { start: new Date(year, month, 1), end: new Date(year, month, 6) }
         },
         {
           key: 2,
@@ -109,7 +111,6 @@ export default {
           key: 8,
           customData: {
             title: 'Visit great grandma.',
-            class: 'bg-red-600 text-white',
           },
           dates: new Date(year, month, 25),
         },
@@ -125,24 +126,13 @@ $day-border-highlight: 1px solid #b8c2cc;
 $day-width: 90px;
 $day-height: 90px;
 $weekday-bg: #f8fafc;
-$weekday-border: 1px solid #eaeaea;
-.scrollbar {
-  width: 0px;
-}
-
-.scrollbar-track {
-  display: none;
-}
+$weekday-border: 0px solid #eaeaea;
 
 .custom-calendar.vc-container {
-  border: 1px solid #b8c2cc;
-  border-highlight: 1px solid #b8c2cc;
-  width: 90px;
-  height: 90px;
-  background: #f8fafc;
+  //border: 1px solid #b8c2cc;
+  //border-highlight: 2px solid #b8c2cc;
+  //width: 90px;
   border: 1px solid #eaeaea;
-  border-radius: 0;
-  width: 100%;
   border-radius: 0;
   width: 100%;
 
@@ -152,27 +142,23 @@ $weekday-border: 1px solid #eaeaea;
   }
 
   .vc-weeks {
-    padding: 0;
+    padding: 10px;
   }
 
   .vc-weekday {
     background-color: $weekday-bg;
     border-bottom: $weekday-border;
     border-top: $weekday-border;
-    padding: 5px 0;
+    padding: 5px 5px;
   }
 
   .vc-day {
-    padding: 0 5px 3px 5px;
+    padding: 3px 5px 3px 5px;
     text-align: left;
     min-height: $day-height;
     min-width: $day-width;
     overflow: auto;
     background-color: white;
-
-    .weekday-1, .weekday-7 {
-      background-color: #eff8ff;
-    }
 
     &:not(.on-bottom) {
       border-bottom: $day-border;

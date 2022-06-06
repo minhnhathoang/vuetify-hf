@@ -104,7 +104,7 @@ export default {
             })
         },
 
-        updateProfile: ({commit, getters}, payload) => {
+            updateProfile: ({commit, getters}, payload) => {
             return new Promise((resolve, reject) => {
                 let user = getters.user
                 axios.post('/user/profile/edit/' + user.id, payload, {
@@ -114,6 +114,7 @@ export default {
                 })
                     .then(response => {
                         console.log(response);
+                        // router.go();
                         resolve();
                     })
                     .catch(error => {

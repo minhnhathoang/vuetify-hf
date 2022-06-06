@@ -83,7 +83,9 @@
         </tr>
 
         <tr v-for="(data, index) in tableData" v-else>
-          <td class="text-primary" @click="getEstablishmentDetails(data['id'])">{{index + perPage * (page - 1)}}</td>
+          <td class="text-primary">
+            <a @click="getEstablishmentDetails(data['id'])">{{ index + perPage * (page - 1) }}</a>
+          </td>
           <td class="font-weight-medium">{{ data['name'] }}</td>
           <td>{{ data['owner'] }}</td>
           <td>{{ data['kind_of_business'] }}</td>

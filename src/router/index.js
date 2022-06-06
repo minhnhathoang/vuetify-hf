@@ -4,7 +4,6 @@ import NotFound from "@/views/NotFound";
 
 import Register from "@/views/Register";
 import AddUser from "@/views/Manager/AddUser";
-import License from "@/views/Business/License";
 import AuthLayout from "@/components/layouts/AuthLayout";
 import DashboardLayout from "@/components/layouts/DashboardLayout";
 import ListUser from "@/views/Manager/ListUser";
@@ -19,6 +18,10 @@ import Setting from "@/views/Setting";
 import CCalendar from "@/components/CCalendar";
 import EstablishmentList from "@/views/EstablishmentList";
 import EstablishmentDetails from "@/views/EstablishmentDetails";
+import PlanList from "@/views/PlanList";
+import PlanDetails from "@/views/PlanDetails";
+import FormAddEstablishment from "@/views/FormAddEstablishment";
+import FormEditEstablishment from "@/views/FormEditEstablishment";
 
 
 const routes = [
@@ -105,7 +108,40 @@ const routes = [
     name: 'EstablishmentDetails',
     component: EstablishmentDetails
   },
+  {
+    path: '/establishment/add',
+    meta: {
+      layout: 'layout'
+    },
+    name: 'FormAddEstablishment',
+    component: FormAddEstablishment
+  },
+  {
+    path: '/establishment/edit/:id',
+    meta: {
+      layout: 'layout'
+    },
+    name: 'FormEditEstablishment',
+    component: FormEditEstablishment
+  },
 
+  // Plan
+  {
+    path: '/plan/list',
+    meta: {
+      layout: 'layout'
+    },
+    name: 'PlanList',
+    component: PlanList
+  },
+  {
+    path: '/Plan/details/:id',
+    meta: {
+      layout: 'layout'
+    },
+    name: 'PlanDetails',
+    component: PlanDetails
+  },
 
   {
     path: '/account/setting',

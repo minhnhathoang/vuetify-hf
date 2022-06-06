@@ -46,6 +46,9 @@ import Language from "@/components/Language";
 import AddUser from "@/views/Manager/AddUser";
 import {Calendar} from "v-calendar";
 import {mapState} from "vuex";
+
+import { useTheme } from 'vuetify'
+
 export default {
   components: {AddUser, Language, CFooter, ProfileMenu, SideBar, LogoApp, Calendar},
   data: () => ({

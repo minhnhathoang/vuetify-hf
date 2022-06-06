@@ -98,6 +98,7 @@
                     label="Email" append-inner-icon="mdi-email"
                     placeholder="john@example.com"
                     variant="outlined"
+                    color="primary"
                     density="compact"/>
               </div>
 
@@ -122,12 +123,14 @@
                     type="password"
                     label="Current Password" append-inner-icon="mdi-lock"
                     variant="outlined"
+                    color="primary"
                     density="compact"/>
                 <v-text-field
                     v-model="pw.new_password"
                     type="password"
                     label="New Password" append-inner-icon="mdi-lock"
                     variant="outlined"
+                    color="primary"
                     hint="Make sure it's at least 8 characters."
                     density="compact"/>
                 <v-text-field
@@ -135,6 +138,7 @@
                     type="password"
                     label="Confirm New Password" append-inner-icon="mdi-lock"
                     variant="outlined"
+                    color="primary"
                     density="compact"/>
 
             <v-snackbar
@@ -237,7 +241,12 @@ export default {
         mobile: this.form.mobile,
         gender: this.form.gender === 'Male' ? 0 : 1,
         birthday: this.form.birthday
+      }).catch(error => {
+        this.pw.errors = error;
+        this.snackbar = true;
       });
+
+      this.$store.dispatch('account/getUser');
     },
 
     changePassword() {

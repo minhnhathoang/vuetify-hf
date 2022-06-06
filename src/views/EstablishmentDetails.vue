@@ -10,7 +10,7 @@
         </v-card-header>
 
         <v-card-text>
-          <v-table density="compact">
+          <v-table >
             <thead>
             </thead>
             <tbody>

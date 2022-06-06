@@ -47,21 +47,21 @@
       ></v-list-item>
     </v-list-group>
 
-    <!--    Certifies Management-->
-    <v-list-group>
-      <template v-slot:activator="{ props }">
-        <v-list-item v-bind="props" title="Certifies" active-color="primary"
-                     prepend-icon="mdi-clipboard-search-outline"></v-list-item>
-      </template>
+<!--    &lt;!&ndash;    Certifies Management&ndash;&gt;-->
+<!--    <v-list-group>-->
+<!--      <template v-slot:activator="{ props }">-->
+<!--        <v-list-item v-bind="props" title="Certifies" active-color="primary"-->
+<!--                     prepend-icon="mdi-clipboard-search-outline"></v-list-item>-->
+<!--      </template>-->
 
-      <v-list-item
-          v-for="([title, icon], i) in certifies"
-          :key="i"
-          :value="title"
-          :title="title"
-          active-color="primary"
-      ></v-list-item>
-    </v-list-group>
+<!--      <v-list-item-->
+<!--          v-for="([title, icon], i) in certifies"-->
+<!--          :key="i"-->
+<!--          :value="title"-->
+<!--          :title="title"-->
+<!--          active-color="primary"-->
+<!--      ></v-list-item>-->
+<!--    </v-list-group>-->
 
     <!--    Help & Support-->
     <v-list-group>
@@ -96,11 +96,12 @@ export default {
     ],
     establishment: [
       ['Establishment List', 'mdi-google-my-business-outline', '/establishment/list'],
+      ['Add New Establishment', 'mdi-google-my-business-outline', '/establishment/add'],
     ],
-    certifies: [
-      ['List', 'mdi-account-multiple-outline'],
-      ['Report a problem', 'mdi-cog-outline'],
-    ],
+    // certifies: [
+    //   ['List', 'mdi-account-multiple-outline'],
+    //   ['Report a problem', 'mdi-cog-outline'],
+    // ],
     healAndSupport: [
       ['Support inbox', 'mdi-account-multiple-outline'],
       ['Report a problem', 'mdi-cog-outline'],

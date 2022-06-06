@@ -64,7 +64,7 @@
 
           <div class="d-flex mb-5">
             <div class="align-self-center text-medium-emphasis"> Birthday</div>
-            <DatePicker v-model="form.date" mode="date" is24hr>
+            <DatePicker v-model="form.birthday" mode="date" is24hr>
               <template v-slot="{ inputValue, inputEvents }">
                 <input
                     class="mx-3 px-2 py-1 border rounded-lg"
@@ -86,25 +86,6 @@
               </v-radio>
             </v-radio-group>
           </div>
-
-          <v-snackbar
-              v-model="snackbar"
-              timeout="5000"
-              location="center"
-              color="error"
-          >
-            <div v-for="(i, k) in errors">
-              {{ i[0] }}
-            </div>
-            <template v-slot:actions>
-              <v-btn
-                  @click="snackbar = false"
-              >
-                Close
-              </v-btn>
-            </template>
-          </v-snackbar>
-
 
           <v-radio-group v-model="form.role" inline>
             <template v-slot:label>
@@ -334,7 +315,7 @@ export default {
     dialog1: false,
     dialog: false,
     dialog_delete_user: false,
-    selected_user: null
+    selected_user: null,
   }),
   created() {
     this.fetchData();
@@ -403,6 +384,7 @@ export default {
       }).catch(error => {
         this.snackbar = true;
         this.errors = error;
+        alert(error);
       });
       this.dialog = true;
     },
@@ -415,15 +397,17 @@ export default {
     deleteUser() {
       axios.delete('/user/delete/' + this.selected_user)
           .then(response => {
-            console.log(response);
             this.fetchData();
             this.dialog_delete_user = false;
-            resolve(response);
+            this.$root.vtoast.show({message: 'Ahoy there!'})
           })
           .catch(error => {
             console.log(error);
             this.dialog_delete_user = false;
-            reject(error.response.data.errors);
+            this.errors = error.response.data.message;
+            // this.snackbar = true;
+            this.dialog_delete_user = false;
+            this.$root.vtoast.show({message: 'Ahoy there!'})
           })
     }
   }
