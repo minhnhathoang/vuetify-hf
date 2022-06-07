@@ -1,6 +1,6 @@
 <template>
   <v-list nav>
-    <v-list-subheader>General</v-list-subheader>
+    <v-list-subheader class="text-uppercase">General</v-list-subheader>
 
     <!--    General-->
     <v-list-item
@@ -16,7 +16,7 @@
 
 
     <!--    User Management-->
-    <v-list-group>
+    <v-list-group v-if="this.$store.state.account.user.role === 0">
       <template v-slot:activator="{ props }">
         <v-list-item v-bind="props" title="User" active-color="primary"
                      prepend-icon="mdi-account-group-outline"></v-list-item>
@@ -79,6 +79,23 @@
       ></v-list-item>
     </v-list-group>
 
+    <v-list-subheader v-if="this.$store.state.account.user.role === 'Admin'" class="text-uppercase mt-5">Admintration</v-list-subheader>
+
+    <v-list-group v-if="this.$store.state.account.user.role === 'Admin'">
+      <template v-slot:activator="{ props }">
+        <v-list-item v-bind="props" title="User" active-color="primary"
+                     prepend-icon="mdi-account-group-outline"></v-list-item>
+      </template>
+      <v-list-item
+          v-for="([title, icon, link], i) in userManagement"
+          :key="i"
+          :value="title"
+          :title="title"
+          :to="link"
+          active-color="primary"
+      ></v-list-item>
+    </v-list-group>
+
     <!--    <v-list-item v-bind="props" title="Recent activity" value="Recent_activity" active-color="primary" prepend-icon="mdi-bell-outline"></v-list-item>-->
   </v-list>
 </template>
@@ -92,16 +109,11 @@ export default {
     ],
     userManagement: [
       ['User List', 'mdi-account-multiple-outline', '/user/list'],
-      ['Add new user', 'mdi-cog-outline', '/user/add'],
     ],
     establishment: [
       ['Establishment List', 'mdi-google-my-business-outline', '/establishment/list'],
       ['Add New Establishment', 'mdi-google-my-business-outline', '/establishment/add'],
     ],
-    // certifies: [
-    //   ['List', 'mdi-account-multiple-outline'],
-    //   ['Report a problem', 'mdi-cog-outline'],
-    // ],
     healAndSupport: [
       ['Support inbox', 'mdi-account-multiple-outline'],
       ['Report a problem', 'mdi-cog-outline'],

@@ -40,6 +40,10 @@
               <td class="font-weight-medium">Gender</td>
               <td>{{ user.gender }}</td>
             </tr>
+            <tr>
+              <td class="font-weight-medium">Location</td>
+              <td>{{ user.location }}</td>
+            </tr>
             </tbody>
           </v-table>
         </div>

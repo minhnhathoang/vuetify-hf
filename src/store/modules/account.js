@@ -45,6 +45,7 @@ export default {
                 axios.post('/login', loginData)
                     .then(response => {
                         localStorage.setItem('accessToken', response.data.token);
+                        localStorage.setItem('role', response.data.user.role);
                         commit('setToken', response.data.token);
                         commit('setErrors', null);
                         axios.defaults.headers.common['Authorization'] = response.data.token;
@@ -104,7 +105,7 @@ export default {
             })
         },
 
-            updateProfile: ({commit, getters}, payload) => {
+        updateProfile: ({commit, getters}, payload) => {
             return new Promise((resolve, reject) => {
                 let user = getters.user
                 axios.post('/user/profile/edit/' + user.id, payload, {
@@ -113,13 +114,10 @@ export default {
                     },
                 })
                     .then(response => {
-                        console.log(response);
-                        // router.go();
-                        resolve();
+                        resolve(response);
                     })
                     .catch(error => {
-                        console.log(error);
-                        reject(error.response.data.message);
+                        reject(error);
                     })
             })
         },
@@ -128,12 +126,10 @@ export default {
             return new Promise((resolve, reject) => {
                 axios.post('/password/change', payload)
                     .then(response => {
-                        console.log(response);
                         resolve(response);
                     })
                     .catch(error => {
-                        console.log(error);
-                        reject(error.response.data.message);
+                        reject(error);
                     })
             })
         },
@@ -142,12 +138,12 @@ export default {
             return new Promise((resolve, reject) => {
                 axios.post('/user/add', payload)
                     .then(response => {
-                        console.log(response);
+                        this.$root.vtoast.show({message: response});
                         resolve(response);
                     })
                     .catch(error => {
-                        console.log(error);
-                        reject(error.response.data.errors);
+                        this.$root.vtoast.show({message: error});
+                        reject(error);
                     })
             })
         },

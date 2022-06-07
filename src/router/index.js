@@ -69,7 +69,8 @@ const routes = [
   {
     path: '/user/list',
     meta: {
-      layout: 'layout'
+      layout: 'layout',
+      admin: true
     },
     name: 'UserList',
     component: UserList
@@ -77,7 +78,8 @@ const routes = [
   {
     path: '/user/details/:id',
     meta: {
-      layout: 'layout'
+      layout: 'layout',
+      admin: true
     },
     name: 'UserDetails',
     component: UserDetails
@@ -85,7 +87,8 @@ const routes = [
   {
     path: '/user/add',
     meta: {
-      layout: 'layout'
+      layout: 'layout',
+      admin: true
     },
     name: 'FormAddUser',
     component: FormAddUser
@@ -170,6 +173,9 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.path === '/login')  next();
+  if (to.meta.admin === true && localStorage.getItem('role') !== 'Admin') {
+    next('/');
+  }
   if (localStorage.getItem('accessToken') === null && to.meta.layout == null) {
     next();
   } else if (localStorage.getItem('accessToken') === null) {

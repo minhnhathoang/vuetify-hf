@@ -153,7 +153,7 @@
                   density="compact"
                   color="primary"
                   outlined
-                  rows="1"
+                  rows="3"
               ></v-textarea>
             </v-col>
           </v-row>

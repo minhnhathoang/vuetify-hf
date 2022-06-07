@@ -14,7 +14,6 @@
             placeholder="Enter code"
             color="primary"
             density="compact"/>
-        {{email}}
         <v-btn class="rounded-0 mb-8" color="primary" x-large block @click="verifyPin">
           Find</v-btn>
       </v-form>

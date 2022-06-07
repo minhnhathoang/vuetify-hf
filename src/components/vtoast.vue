@@ -5,6 +5,9 @@
       v-model="showSnackbar"
       location="center"
   >
+    <v-progress-circular v-if="load === true"
+        indeterminate
+    ></v-progress-circular>
     <div class="text-white font-weight-medium">{{message}}</div>
   </v-snackbar>
 </template>
@@ -17,7 +20,8 @@ export default {
       showSnackbar: false,
       message: '',
       color: 'success',
-      timer: 1000
+      timer: 1000,
+      load: false
     }
   },
   methods:{
@@ -26,6 +30,7 @@ export default {
       this.color = data.color || 'success'
       this.timer = data.timer || 1000
       this.showSnackbar = true
+      this.load = data.load || false
     }
   }
 }

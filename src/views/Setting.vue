@@ -7,7 +7,7 @@
     >
       <v-tab :value="1" class="text-center">
         <div class="align-self d-flex">
-        <v-icon class="mr-3" size="x-large">mdi-account-outline</v-icon>
+          <v-icon class="mr-3" size="x-large">mdi-account-outline</v-icon>
           <div class="align-self-end">Account</div>
         </div>
       </v-tab>
@@ -67,6 +67,7 @@
                     variant="outlined"
                     color="primary"
                     hide-details="auto"
+                    hint="This field is required"
                     density="compact"/>
               </div>
               <div class="v-col-md-4 v-col-12">
@@ -76,7 +77,6 @@
                     label="Surname"
                     variant="outlined"
                     color="primary"
-                    hint="At least 8 characters"
                     hide-details="auto"
                     density="compact"/>
               </div>
@@ -88,7 +88,7 @@
                     variant="outlined"
                     color="primary"
                     hide-details="auto"
-
+                    hint="This field is required"
                     density="compact"/>
               </div>
               <div class="v-col-md-6 v-col-12">
@@ -99,9 +99,59 @@
                     placeholder="john@example.com"
                     variant="outlined"
                     color="primary"
+                    hide-details="auto"
+                    hint="This field is required"
                     density="compact"/>
               </div>
-
+              <div class="v-col-md-6 v-col-12">
+                <v-text-field
+                    v-model="form.mobile"
+                    type="number"
+                    label="Mobile" append-inner-icon="mdi-email"
+                    variant="outlined"
+                    color="primary"
+                    hide-details="auto"
+                    density="compact"/>
+              </div>
+              <div class="v-col-md-6 v-col-12">
+                <v-text-field
+                    v-model="form.birthday"
+                    variant="outlined"
+                    density="compact"
+                    color="primary"
+                    outlined
+                    hide-details
+                    label="Birthday"
+                    type="date"
+                />
+              </div>
+              <div class="v-col-md-6 v-col-12">
+                <v-radio-group v-model="form.gender" inline class="d-flex">
+                  <v-radio value="Male" color="primary">
+                    <template v-slot:label class="">
+                      Male
+                    </template>
+                  </v-radio>
+                  <v-radio value="Female" color="primary">
+                    <template v-slot:label>
+                      Female
+                    </template>
+                  </v-radio>
+                </v-radio-group>
+              </div>
+              <div class="v-col-md-6 v-col-12">
+                <v-text-field
+                    v-model="form.location"
+                    disabled
+                    variant="outlined"
+                    density="compact"
+                    color="primary"
+                    outlined
+                    hide-details
+                    label="Location"
+                    type="text"
+                />
+              </div>
             </v-row>
           </v-card-text>
           <v-card-text class="d-flex">
@@ -112,34 +162,34 @@
         </v-card>
       </v-window-item>
 
-<!--      ///////////////////////////-->
+      <!--      ///////////////////////////-->
       <v-window-item
           :value="2"
       >
         <v-card elevation="0" class="ma-sm-5">
           <v-card-text class="v-col-md-5 v-col-sm-7">
-                <v-text-field
-                    v-model="pw.current_password"
-                    type="password"
-                    label="Current Password" append-inner-icon="mdi-lock"
-                    variant="outlined"
-                    color="primary"
-                    density="compact"/>
-                <v-text-field
-                    v-model="pw.new_password"
-                    type="password"
-                    label="New Password" append-inner-icon="mdi-lock"
-                    variant="outlined"
-                    color="primary"
-                    hint="Make sure it's at least 8 characters."
-                    density="compact"/>
-                <v-text-field
-                    v-model="pw.new_password_confirmation"
-                    type="password"
-                    label="Confirm New Password" append-inner-icon="mdi-lock"
-                    variant="outlined"
-                    color="primary"
-                    density="compact"/>
+            <v-text-field
+                v-model="pw.current_password"
+                type="password"
+                label="Current Password" append-inner-icon="mdi-lock"
+                variant="outlined"
+                color="primary"
+                hint="This field is required"
+                density="compact"/>
+            <v-text-field
+                v-model="pw.new_password"
+                type="password"
+                label="New Password" append-inner-icon="mdi-lock"
+                variant="outlined"
+                color="primary"
+                density="compact"/>
+            <v-text-field
+                v-model="pw.new_password_confirmation"
+                type="password"
+                label="Confirm New Password" append-inner-icon="mdi-lock"
+                variant="outlined"
+                color="primary"
+                density="compact"/>
 
             <v-snackbar
                 v-model="snackbar"
@@ -180,15 +230,16 @@ export default {
         emailMatch: () => (`The email and password you entered don't match`),
       },
       form: {
-        first_name: "He",
+        first_name: "",
         surname: null,
         last_name: null,
-        email: "SDSD@@",
+        email: "",
         role: null,
         avatar: null,
         mobile: null,
         gender: null,
         birthday: null,
+        location: null
       },
       isSelecting: false,
       selectedFile: null,
@@ -241,12 +292,13 @@ export default {
         mobile: this.form.mobile,
         gender: this.form.gender === 'Male' ? 0 : 1,
         birthday: this.form.birthday
-      }).catch(error => {
-        this.pw.errors = error;
-        this.snackbar = true;
-      });
-
-      this.$store.dispatch('account/getUser');
+      }).then(response => {
+        this.$root.vtoast.show({message: response.data.message})
+        this.$store.dispatch('account/getUser');
+      })
+          .catch(error => {
+            this.$root.vtoast.show({message: error.response.data.message, color: 'error'})
+          })
     },
 
     changePassword() {
@@ -254,11 +306,13 @@ export default {
         current_password: this.pw.current_password,
         new_password: this.pw.new_password,
         new_password_confirmation: this.pw.new_password_confirmation
-      }).catch(error => {
-        this.pw.errors = error;
-        console.log("change" + this.pw.error);
-        this.snackbar = true;
-      });
+      }).then(response => {
+        this.$root.vtoast.show({message: response.data.message})
+      })
+          .catch(error => {
+            console.log(error);
+            this.$root.vtoast.show({message: error.response.data.message, color: 'error'})
+          })
     },
   }
 }

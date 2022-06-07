@@ -1,5 +1,9 @@
 <template>
   <v-card elevation="0">
+    <v-card-header>
+      <v-card-title>Establishment List</v-card-title>
+    </v-card-header>
+    <v-divider></v-divider>
     <v-card-text>
       <v-row>
         <v-col
@@ -16,6 +20,22 @@
               color="primary"
               @keyup.prevent="handlePerPage"
           />
+        </v-col>
+        <v-col
+            cols="12"
+            md="4"
+        >
+          <v-select
+              v-model="filter"
+              :items="['Default', 'Active', 'Expired', 'Revoked', 'Not Certificate']"
+              label="Certificate Filter"
+              variant="outlined"
+              density="compact"
+              color="primary"
+              menu-icon="mdi-filter-variant"
+              outlined
+              dense
+          ></v-select>
         </v-col>
       </v-row>
     </v-card-text>
@@ -67,6 +87,10 @@
             </span>
           </th>
 
+          <th scope="col" class="text-no-wrap">
+            Description
+          </th>
+
           <th scope="col" @click="updateSortColumn('certificates.registration_number')" class="text-no-wrap">
             Reg. No
             <span v-if="'certificates.registration_number' === sortField">
@@ -90,6 +114,7 @@
           <td>{{ data['owner'] }}</td>
           <td>{{ data['kind_of_business'] }}</td>
           <td>{{ data['address'] }}</td>
+          <td>{{ data['description'] }}</td>
           <td v-if="data['certificate']" class="text-success font-weight-bold">
             <v-chip size="small" class="font-weight-bold" color="error" v-if="data['certificate']['is_revoked']">
               #{{ data['certificate']['registration_number']}} Revoked
@@ -144,10 +169,20 @@ export default {
       page: 1,
       pagination: {to: 1, from: 1},
       sortField: 'name',
+      filter: 'Default',
       // sortField: 'registration_number',
 
       url: "http://localhost:8000/api/establishments",
       columns: ['Name of food establishment', 'Owner',  'Kind of business', 'Address', 'Reg. No'],
+    }
+  },
+  watch: {
+    filter: {
+      handler() {
+        this.sortOrder = "asc"
+        this.page = 1
+        this.fetchData();
+      }
     }
   },
   created() {
@@ -161,7 +196,8 @@ export default {
           sort_order: this.sortOrder,
           search: this.search,
           per_page: this.perPage,
-          page: this.page
+          page: this.page,
+          filter: this.filter
         }
         const {data} = await axios.get(this.url, {params})
         console.log(data.data);

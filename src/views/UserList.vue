@@ -1,141 +1,13 @@
 <template>
-  <v-container fluid>
-    <v-dialog
-        v-model="dialog"
-        fullscreen
-        max-width="600"
-        class="my-sm-10 my-0"
-    >
-      <template v-slot:activator="{ props }">
-        <v-btn
-            color="primary"
-            v-bind="props"
-        >
-          Add new user
-        </v-btn>
-      </template>
-      <v-card class="border-sm rounded-lg align-self-center">
-        <v-card-text class="d-flex">
-          <v-toolbar-title class="font-weight-medium">Add user</v-toolbar-title>
-          <v-btn flat @click="dialog = !dialog" icon="mdi-close">Close</v-btn>
-        </v-card-text>
-
-        <v-card-text>
-          <div class="align-content-space-between d-sm-flex">
-            <v-text-field
-                v-model="form.first_name"
-                type="text"
-                label="First Name"
-                variant="outlined"
-                color="primary"
-                density="compact"/>
-            <v-text-field
-                v-model="form.surname"
-                type="text"
-                label="Surname"
-                variant="outlined"
-                class="mx-sm-3"
-                color="primary"
-                density="compact"/>
-            <v-text-field
-                v-model="form.last_name"
-                type="text"
-                label="Last Name"
-                variant="outlined"
-                color="primary"
-                density="compact"/>
-          </div>
-          <v-text-field
-              v-model="form.email"
-              type="email"
-              label="Email" append-inner-icon="mdi-email"
-              placeholder="john@example.com"
-              variant="outlined"
-              color="primary"
-              density="compact"/>
-
-          <v-text-field
-              v-model="form.mobile"
-              type="number"
-              label="Mobile" append-inner-icon="mdi-phone"
-              variant="outlined"
-              color="primary"
-              density="compact"/>
-
-          <div class="d-flex mb-5">
-            <div class="align-self-center text-medium-emphasis"> Birthday</div>
-            <DatePicker v-model="form.birthday" mode="date" is24hr>
-              <template v-slot="{ inputValue, inputEvents }">
-                <input
-                    class="mx-3 px-2 py-1 border rounded-lg"
-                    :value="inputValue"
-                    v-on="inputEvents"
-                />
-              </template>
-            </DatePicker>
-            <v-radio-group v-model="form.gender" inline class="d-flex">
-              <v-radio value="0" color="primary">
-                <template v-slot:label class="">
-                  Male
-                </template>
-              </v-radio>
-              <v-radio value="1" color="primary">
-                <template v-slot:label>
-                  Female
-                </template>
-              </v-radio>
-            </v-radio-group>
-          </div>
-
-          <v-radio-group v-model="form.role" inline>
-            <template v-slot:label>
-              <div class="mb-4"><strong>Choose a user role</strong></div>
-            </template>
-            <v-radio value="0" color="primary">
-              <template v-slot:label>
-                Admin
-              </template>
-            </v-radio>
-            <v-radio value="1" color="primary">
-              <template v-slot:label>
-                User
-              </template>
-            </v-radio>
-          </v-radio-group>
-
-        </v-card-text>
-
-        <v-card-text>
-          <v-spacer></v-spacer>
-          <v-btn
-              :disabled="dialog1"
-              :loading="dialog1"
-              class="bg-primary text-white"
-              @click="addUser"
-          >
-            Add new user
-          </v-btn>
-          <v-dialog
-              v-model="dialog1"
-              hide-overlay
-              persistent
-          >
-            <v-progress-circular
-                color="primary"
-                indeterminate
-                :size="50"
-            ></v-progress-circular>
-          </v-dialog>
-        </v-card-text>
-      </v-card>
-    </v-dialog>
-  </v-container>
-
   <v-card elevation="0">
+    <v-card-header>
+      <v-card-title>User List</v-card-title>
+    </v-card-header>
+    <v-divider></v-divider>
     <v-card-text>
       <v-row>
         <v-col
-            cols="12"
+            cols="6"
             md="4"
         >
           <v-text-field
@@ -148,6 +20,150 @@
               color="primary"
               @keyup.prevent="handlePerPage"
           />
+        </v-col>
+        <v-spacer></v-spacer>
+        <v-col cols="12"
+               md="2">
+
+          <v-dialog
+              v-model="dialog"
+              fullscreen
+              max-width="600"
+              class="my-sm-10 my-0"
+          >
+            <template v-slot:activator="{ props }">
+              <v-btn
+                  color="primary"
+                  v-bind="props"
+              >
+                Add new user
+              </v-btn>
+            </template>
+            <v-card class="border-sm rounded-lg align-self-center">
+              <v-card-text class="d-flex">
+                <v-toolbar-title class="font-weight-medium">Add user</v-toolbar-title>
+                <v-btn flat @click="dialog = !dialog" icon="mdi-close">Close</v-btn>
+              </v-card-text>
+
+              <v-card-text>
+                <div class="align-content-space-between d-sm-flex">
+                  <v-text-field
+                      v-model="form.first_name"
+                      type="text"
+                      label="First Name"
+                      variant="outlined"
+                      color="primary"
+                      density="compact"/>
+                  <v-text-field
+                      v-model="form.surname"
+                      type="text"
+                      label="Surname"
+                      variant="outlined"
+                      class="mx-sm-3"
+                      color="primary"
+                      density="compact"/>
+                  <v-text-field
+                      v-model="form.last_name"
+                      type="text"
+                      label="Last Name"
+                      variant="outlined"
+                      color="primary"
+                      density="compact"/>
+                </div>
+                <v-text-field
+                    v-model="form.email"
+                    type="email"
+                    label="Email" append-inner-icon="mdi-email"
+                    placeholder="john@example.com"
+                    variant="outlined"
+                    color="primary"
+                    density="compact"/>
+
+                <v-text-field
+                    v-model="form.mobile"
+                    type="number"
+                    label="Mobile" append-inner-icon="mdi-phone"
+                    variant="outlined"
+                    color="primary"
+                    density="compact"/>
+
+                <div class="d-flex mb-5">
+                  <v-text-field
+                      v-model="form.birthday"
+                      variant="outlined"
+                      density="compact"
+                      color="primary"
+                      outlined
+                      hide-details
+                      label="Birthday"
+                      type="date"
+                  />
+                  <v-radio-group v-model="form.gender" inline class="d-flex">
+                    <v-radio value="0" color="primary">
+                      <template v-slot:label class="">
+                        Male
+                      </template>
+                    </v-radio>
+                    <v-radio value="1" color="primary">
+                      <template v-slot:label>
+                        Female
+                      </template>
+                    </v-radio>
+                  </v-radio-group>
+                </div>
+                <v-select
+                    v-model="form.location"
+                    :items="this.$store.state.gso.provinces"
+                    label="Location"
+                    variant="outlined"
+                    density="compact"
+                    color="primary"
+                    outlined
+                    dense
+                ></v-select>
+
+                <v-radio-group v-model="form.role" inline>
+                  <template v-slot:label>
+                    <div class="mb-4"><strong>Choose a user role</strong></div>
+                  </template>
+                  <v-radio value="0" color="primary">
+                    <template v-slot:label>
+                      Admin
+                    </template>
+                  </v-radio>
+                  <v-radio value="1" color="primary">
+                    <template v-slot:label>
+                      Specialist
+                    </template>
+                  </v-radio>
+                </v-radio-group>
+
+              </v-card-text>
+
+              <v-card-text>
+                <v-spacer></v-spacer>
+                <v-btn
+                    :disabled="dialog1"
+                    :loading="dialog1"
+                    class="bg-primary text-white"
+                    @click="addUser"
+                >
+                  Add new user
+                </v-btn>
+                <v-dialog
+                    v-model="dialog1"
+                    hide-overlay
+                    persistent
+                >
+                  <v-progress-circular
+                      color="primary"
+                      indeterminate
+                      :size="50"
+                  ></v-progress-circular>
+                </v-dialog>
+              </v-card-text>
+            </v-card>
+          </v-dialog>
         </v-col>
       </v-row>
     </v-card-text>
@@ -307,7 +323,8 @@ export default {
       mobile: null,
       role: null,
       birthday: null,
-      gender: null
+      gender: null,
+      location: null
     },
     timeout: 2000,
     errors: null,
@@ -319,6 +336,7 @@ export default {
   }),
   created() {
     this.fetchData();
+    this.$store.dispatch('gso/getProvinces');
   },
   watch: {
     dialog(val) {
@@ -372,21 +390,23 @@ export default {
     },
 
     addUser() {
-      this.$store.dispatch('account/addUser', {
+      axios.post('/user/add', {
         first_name: this.form.first_name,
         surname: this.form.surname,
         last_name: this.form.last_name,
         email: this.form.email,
         mobile: this.form.mobile,
         role: this.form.role,
+        location: this.form.location,
         gender: this.form.gender,
         birthday: this.form.birthday
-      }).catch(error => {
-        this.snackbar = true;
-        this.errors = error;
-        alert(error);
-      });
-      this.dialog = true;
+      })
+          .then(response => {
+            this.$root.vtoast.show({message: response.data.message});
+          })
+          .catch(error => {
+            this.$root.vtoast.show({message: error.response.data.message, color: 'error'});
+          });
     },
 
     askDeleteUser(id) {
@@ -399,15 +419,12 @@ export default {
           .then(response => {
             this.fetchData();
             this.dialog_delete_user = false;
-            this.$root.vtoast.show({message: 'Ahoy there!'})
+            this.$root.vtoast.show({message: response.data.message})
           })
           .catch(error => {
-            console.log(error);
             this.dialog_delete_user = false;
-            this.errors = error.response.data.message;
-            // this.snackbar = true;
             this.dialog_delete_user = false;
-            this.$root.vtoast.show({message: 'Ahoy there!'})
+            this.$root.vtoast.show({message: error.response.data.message, color: 'error'});
           })
     }
   }
