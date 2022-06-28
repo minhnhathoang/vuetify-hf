@@ -18,9 +18,13 @@
         >
           <div class="">
             <div class="d-flex">
-              <div class=""><v-avatar color="accent" size="50px"><img src="https://picsum.photos/200/300?random=1"></v-avatar></div>
+              <div class="">
+                <v-avatar color="accent" size="50px"><img src="https://picsum.photos/200/300?random=1"></v-avatar>
+              </div>
               <div>
-               <div class="mx-2"><strong>Hoang Minh Nhat</strong> Posted in K65-CLC UET Posted in K65-CLC UET Posted in K65-CLC UET</div>
+                <div class="mx-2"><strong>Hoang Minh Nhat</strong> Posted in K65-CLC UET Posted in K65-CLC UET Posted in
+                  K65-CLC UET
+                </div>
                 <div class="mx-2 text-caption text-no-wrap">2h ago</div>
               </div>
             </div>
@@ -37,21 +41,21 @@
 export default {
   data: () => ({
     items: [
-      { title: 'Profile' },
-      { title: 'Click Me' },
-      { title: 'Click Me' },
-      { title: 'Logout' },
-      { title: 'Logout' },
-      { title: 'Logout' },
-      { title: 'Logout' },
-      { title: 'Logout' },
-      { title: 'Logout' },
-      { title: 'Logout' },
-      { title: 'Logout' },
-      { title: 'Logout' },
-      { title: 'Logout' },
-      { title: 'Logout' },
-      { title: 'Logout' },
+      {title: 'Profile'},
+      {title: 'Click Me'},
+      {title: 'Click Me'},
+      {title: 'Logout'},
+      {title: 'Logout'},
+      {title: 'Logout'},
+      {title: 'Logout'},
+      {title: 'Logout'},
+      {title: 'Logout'},
+      {title: 'Logout'},
+      {title: 'Logout'},
+      {title: 'Logout'},
+      {title: 'Logout'},
+      {title: 'Logout'},
+      {title: 'Logout'},
     ],
   }),
 }

@@ -1,6 +1,6 @@
 <template>
   <v-row align="center" justify="center">
-    <v-card max-width="400" elevation="1" class="mx-auto text-center pa-10">
+    <v-card class="mx-auto text-center pa-10" elevation="1" max-width="400">
       <logo-app class="mb-10"></logo-app>
       <div class="text-left mb-10">
         <h2 class="mb-5">Enter security code </h2>
@@ -9,20 +9,21 @@
       <v-form>
         <v-text-field
             v-model="code"
-            type=""
-            variant="outlined"
-            placeholder="Enter code"
             color="primary"
-            density="compact"/>
-        <v-btn class="rounded-0 mb-8" color="primary" x-large block @click="verifyPin">
-          Find</v-btn>
+            density="compact"
+            placeholder="Enter code"
+            type=""
+            variant="outlined"/>
+        <v-btn block class="rounded-0 mb-8" color="primary" x-large @click="verifyPin">
+          Find
+        </v-btn>
       </v-form>
 
-        <v-card-actions>
-          <router-link to="/forgot-password" class="d-flex text-decoration-none text-primary ">
-            <div class="text-sm-body-2">Get a new code</div>
-          </router-link>
-        </v-card-actions>
+      <v-card-actions>
+        <router-link class="d-flex text-decoration-none text-primary " to="/forgot-password">
+          <div class="text-sm-body-2">Get a new code</div>
+        </router-link>
+      </v-card-actions>
 
     </v-card>
   </v-row>
@@ -47,7 +48,7 @@ export default {
       axios.post('/verify/pin', {email: this.email, token: this.code})
           .then(response => {
             console.log(this.email + "AAAAAAAAAAA" + this.code);
-            this.$router.push({name: 'ResetPassword', params: { email: this.email, token: this.code } });
+            this.$router.push({name: 'ResetPassword', params: {email: this.email, token: this.code}});
           })
           .catch(error => {
           })

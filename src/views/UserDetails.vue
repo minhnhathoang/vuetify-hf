@@ -1,16 +1,25 @@
 <template>
-  <v-card class="ma-sm-5 w-75" v-if="user">
-    <v-card-content class="d-flex">
+  <v-card v-if="user" class="ma-sm-5 w-75">
+    <v-card-content class="d-sm-flex d-block">
 
-      <div class="d-flex">
+      <div class="d-sm-flex d-block mt-5">
         <v-avatar color="white" size="100">
-          <v-img v-if="user != null && user.avatar != null" height="100%" cover :src="user.avatar"></v-img>
+          <v-img v-if="user != null && user.avatar != null" :src="user.avatar" cover height="100%"></v-img>
         </v-avatar>
 
-        <div class="px-5">
-          <div class="font-weight-medium text-no-wrap"> {{user.full_name}} </div>
-          <div class="text-capitalize text-medium-emphasis py-2"> {{ user.role }} </div>
-<!--          <div class=""> <strong>ID: </strong>  #23232 </div>-->
+        <div class="px-5 align-center justify-center">
+          <div class="font-weight-medium text-no-wrap"> {{ user.full_name }}</div>
+          <div class="py-2">
+
+            <v-chip
+                color="primary"
+                class="font-weight-bold ma-2"
+            >
+              {{ user.role }}
+              <v-icon end icon="mdi-account-outline"></v-icon>
+            </v-chip></div>
+
+          <!--          <div class=""> <strong>ID: </strong>  #23232 </div>-->
         </div>
       </div>
       <v-spacer></v-spacer>
@@ -22,7 +31,7 @@
             <tbody>
             <tr>
               <td class="font-weight-medium">Email</td>
-              <td class="text-accent">{{user.email}}</td>
+              <td class="text-accent">{{ user.email }}</td>
             </tr>
             <tr>
               <td class="font-weight-medium">Phone</td>
@@ -30,11 +39,11 @@
             </tr>
             <tr>
               <td class="font-weight-medium">Birthday</td>
-              <td>{{user.birthday}}</td>
+              <td>{{ user.birthday }}</td>
             </tr>
             <tr>
               <td class="font-weight-medium">Address</td>
-              <td>{{user.address}}</td>
+              <td>{{ user.address }}</td>
             </tr>
             <tr>
               <td class="font-weight-medium">Gender</td>
@@ -56,7 +65,6 @@
 <script>
 
 import axios from "axios";
-import router from "@/router";
 
 export default {
   data() {
@@ -74,7 +82,7 @@ export default {
       axios.get('/user/details/' + this.id)
           .then(response => {
             console.log(response)
-              this.user = response.data.profile
+            this.user = response.data.profile
             console.log('AAAA222' + response);
           })
           .catch(error => {
@@ -91,6 +99,7 @@ tbody {
   tr:hover {
     background-color: transparent !important;
   }
+
   tr {
     --v-border-color: white !important;
   }

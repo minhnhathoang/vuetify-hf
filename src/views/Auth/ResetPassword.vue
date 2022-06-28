@@ -1,6 +1,6 @@
 <template>
   <v-row align="center" justify="center">
-    <v-card max-width="400" elevation="1" class="mx-auto text-center pa-10">
+    <v-card class="mx-auto text-center pa-10" elevation="1" max-width="400">
       <logo-app class="mb-10"></logo-app>
       <div class="text-left mb-10">
         <h2 class="mb-5">Create your password</h2>
@@ -9,25 +9,25 @@
       <v-form>
         <v-text-field
             v-model="password"
+            append-inner-icon="mdi-lock"
+            color="primary" density="compact"
+            label="Password"
             type="password"
-            label="Password" append-inner-icon="mdi-lock"
-            variant="outlined"
-            color="primary"
-            density="compact"/>
+            variant="outlined"/>
         <v-text-field
             v-model="password_confirmation"
+            append-inner-icon="mdi-lock"
+            color="primary" density="compact"
+            label="Confirm password"
             type="password"
-            label="Confirm password" append-inner-icon="mdi-lock"
-            variant="outlined"
-            color="primary"
-            density="compact"/>
+            variant="outlined"/>
 
-        <div class="text-error">{{this.errors}}</div>
+        <div class="text-error">{{ this.errors }}</div>
       </v-form>
       <v-btn
           block
-          color="primary"
           class="mt-6"
+          color="primary"
           @click="resetPassword"
       >
         Submit
@@ -39,6 +39,7 @@
 <script>
 import LogoApp from "@/components/LogoApp";
 import axios from "axios";
+
 export default {
   components: {LogoApp},
   data: () => ({

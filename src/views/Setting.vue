@@ -24,10 +24,10 @@
           :value="1"
           ev
       >
-        <v-card elevation="0" class="ma-sm-5">
+        <v-card class="ma-sm-5" elevation="0">
           <v-card-content class="d-flex align-center">
-            <v-avatar size="140" rounded="0">
-              <v-img :src="form.avatar" height="100%" cover></v-img>
+            <v-avatar rounded="0" size="140">
+              <v-img :src="form.avatar" cover height="100%"></v-img>
             </v-avatar>
             <div class="px-3 align-self-end">
               <div class="">
@@ -41,7 +41,7 @@
                 </v-chip>
               </div>
 
-              <v-btn size="small" color="primary" variant="outlined" :loading="isSelecting"
+              <v-btn :loading="isSelecting" color="primary" size="small" variant="outlined"
                      @click="handleFileImport">
                 Upload new photo
               </v-btn>
@@ -62,77 +62,77 @@
               <div class="v-col-md-4 v-col-12">
                 <v-text-field
                     v-model="form.first_name"
-                    type="text"
-                    label="First Name"
-                    variant="outlined"
                     color="primary"
+                    density="compact"
                     hide-details="auto"
                     hint="This field is required"
-                    density="compact"/>
+                    label="First Name"
+                    type="text"
+                    variant="outlined"/>
               </div>
               <div class="v-col-md-4 v-col-12">
                 <v-text-field
                     v-model="form.surname"
-                    type="text"
-                    label="Surname"
-                    variant="outlined"
                     color="primary"
+                    density="compact"
                     hide-details="auto"
-                    density="compact"/>
+                    label="Surname"
+                    type="text"
+                    variant="outlined"/>
               </div>
               <div class="v-col-md-4 v-col-12">
                 <v-text-field
                     v-model="form.last_name"
-                    type="text"
-                    label="Last Name"
-                    variant="outlined"
                     color="primary"
+                    density="compact"
                     hide-details="auto"
                     hint="This field is required"
-                    density="compact"/>
+                    label="Last Name"
+                    type="text"
+                    variant="outlined"/>
               </div>
               <div class="v-col-md-6 v-col-12">
                 <v-text-field
                     v-model="form.email"
-                    type="email"
-                    label="Email" append-inner-icon="mdi-email"
-                    placeholder="john@example.com"
-                    variant="outlined"
-                    color="primary"
+                    append-inner-icon="mdi-email"
+                    color="primary" density="compact"
                     hide-details="auto"
                     hint="This field is required"
-                    density="compact"/>
+                    label="Email"
+                    placeholder="john@example.com"
+                    type="email"
+                    variant="outlined"/>
               </div>
               <div class="v-col-md-6 v-col-12">
                 <v-text-field
                     v-model="form.mobile"
-                    type="number"
-                    label="Mobile" append-inner-icon="mdi-email"
-                    variant="outlined"
-                    color="primary"
+                    append-inner-icon="mdi-email"
+                    color="primary" density="compact"
                     hide-details="auto"
-                    density="compact"/>
+                    label="Mobile"
+                    type="number"
+                    variant="outlined"/>
               </div>
               <div class="v-col-md-6 v-col-12">
                 <v-text-field
                     v-model="form.birthday"
-                    variant="outlined"
-                    density="compact"
                     color="primary"
-                    outlined
+                    density="compact"
                     hide-details
                     label="Birthday"
+                    outlined
                     type="date"
+                    variant="outlined"
                 />
               </div>
               <div class="v-col-md-6 v-col-12">
-                <v-radio-group v-model="form.gender" inline class="d-flex">
-                  <v-radio value="Male" color="primary">
+                <v-radio-group v-model="form.gender" class="d-flex" inline>
+                  <v-radio color="primary" value="Male">
                     <template v-slot:label class="">
                       Male
                     </template>
                   </v-radio>
-                  <v-radio value="Female" color="primary">
+                  <v-radio color="primary" value="Female">
                     <template v-slot:label>
                       Female
                     </template>
@@ -142,14 +142,14 @@
               <div class="v-col-md-6 v-col-12">
                 <v-text-field
                     v-model="form.location"
-                    disabled
-                    variant="outlined"
-                    density="compact"
                     color="primary"
-                    outlined
+                    density="compact"
+                    disabled
                     hide-details
                     label="Location"
+                    outlined
                     type="text"
+                    variant="outlined"
                 />
               </div>
             </v-row>
@@ -166,36 +166,36 @@
       <v-window-item
           :value="2"
       >
-        <v-card elevation="0" class="ma-sm-5">
+        <v-card class="ma-sm-5" elevation="0">
           <v-card-text class="v-col-md-5 v-col-sm-7">
             <v-text-field
                 v-model="pw.current_password"
-                type="password"
-                label="Current Password" append-inner-icon="mdi-lock"
-                variant="outlined"
-                color="primary"
+                append-inner-icon="mdi-lock"
+                color="primary" density="compact"
                 hint="This field is required"
-                density="compact"/>
+                label="Current Password"
+                type="password"
+                variant="outlined"/>
             <v-text-field
                 v-model="pw.new_password"
+                append-inner-icon="mdi-lock"
+                color="primary" density="compact"
+                label="New Password"
                 type="password"
-                label="New Password" append-inner-icon="mdi-lock"
-                variant="outlined"
-                color="primary"
-                density="compact"/>
+                variant="outlined"/>
             <v-text-field
                 v-model="pw.new_password_confirmation"
+                append-inner-icon="mdi-lock"
+                color="primary" density="compact"
+                label="Confirm New Password"
                 type="password"
-                label="Confirm New Password" append-inner-icon="mdi-lock"
-                variant="outlined"
-                color="primary"
-                density="compact"/>
+                variant="outlined"/>
 
             <v-snackbar
                 v-model="snackbar"
-                timeout="5000"
-                location="center"
                 color="error"
+                location="center"
+                timeout="5000"
             >
               {{ pw.errors }}
 

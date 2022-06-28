@@ -10,31 +10,31 @@
         <v-form class="multi-col-validation mt-1">
           <v-row>
             <v-col
-                md="6"
                 cols="12"
+                md="6"
             >
               <v-text-field
                   v-model="form.name"
-                  type="text"
                   color="primary"
-                  label="Name of food establishment"
-                  variant="outlined"
+                  density="compact"
                   hide-details
-                  density="compact"/>
+                  label="Name of food establishment"
+                  type="text"
+                  variant="outlined"/>
             </v-col>
 
             <v-col
-                md="6"
                 cols="12"
+                md="6"
             >
               <v-text-field
                   v-model="form.owner"
-                  type="text"
                   color="primary"
-                  label="Owner"
-                  variant="outlined"
+                  density="compact"
                   hide-details
-                  density="compact"/>
+                  label="Owner"
+                  type="text"
+                  variant="outlined"/>
             </v-col>
 
             <v-col
@@ -44,13 +44,13 @@
               <v-select
                   v-model="form.kind_of_business"
                   :items="['Sản xuất thực phẩm', 'Dịch vụ ăn uống']"
-                  label="Kind of business"
-                  variant="outlined"
-                  density="compact"
                   color="primary"
-                  outlined
                   dense
+                  density="compact"
                   hide-details
+                  label="Kind of business"
+                  outlined
+                  variant="outlined"
               ></v-select>
             </v-col>
 
@@ -60,12 +60,12 @@
             >
               <v-text-field
                   v-model="form.fax"
-                  type="number"
                   color="primary"
-                  label="Fax"
-                  variant="outlined"
+                  density="compact"
                   hide-details
-                  density="compact"/>
+                  label="Fax"
+                  type="number"
+                  variant="outlined"/>
             </v-col>
             <v-col
                 cols="12"
@@ -73,12 +73,12 @@
             >
               <v-text-field
                   v-model="form.telephone"
-                  type="number"
                   color="primary"
-                  label="Telephone"
-                  variant="outlined"
+                  density="compact"
                   hide-details
-                  density="compact"/>
+                  label="Telephone"
+                  type="number"
+                  variant="outlined"/>
             </v-col>
             <v-col
                 cols="12"
@@ -86,12 +86,12 @@
             >
               <v-text-field
                   v-model="form.address"
-                  type="text"
                   color="primary"
-                  label="Address"
-                  variant="outlined"
+                  density="compact"
                   hide-details
-                  density="compact"/>
+                  label="Address"
+                  type="text"
+                  variant="outlined"/>
             </v-col>
             <v-col
                 cols="12"
@@ -100,13 +100,13 @@
               <v-select
                   v-model="form.province"
                   :items="this.$store.state.gso.provinces"
-                  label="Province"
-                  variant="outlined"
-                  density="compact"
                   color="primary"
-                  outlined
                   dense
+                  density="compact"
                   hide-details
+                  label="Province"
+                  outlined
+                  variant="outlined"
               ></v-select>
             </v-col>
 
@@ -117,13 +117,13 @@
               <v-select
                   v-model="form.district"
                   :items="this.$store.state.gso.districts"
-                  label="District"
-                  variant="outlined"
-                  density="compact"
                   color="primary"
-                  outlined
                   dense
+                  density="compact"
                   hide-details
+                  label="District"
+                  outlined
+                  variant="outlined"
               ></v-select>
             </v-col>
             <v-col
@@ -133,13 +133,13 @@
               <v-select
                   v-model="form.commune"
                   :items="this.$store.state.gso.communes"
-                  label="Commune"
-                  variant="outlined"
-                  density="compact"
                   color="primary"
-                  outlined
                   dense
+                  density="compact"
                   hide-details
+                  label="Commune"
+                  outlined
+                  variant="outlined"
               ></v-select>
             </v-col>
             <v-col
@@ -148,22 +148,22 @@
             >
               <v-textarea
                   v-model="form.description"
-                  label="Description"
-                  variant="outlined"
-                  density="compact"
                   color="primary"
+                  density="compact"
+                  label="Description"
                   outlined
                   rows="3"
+                  variant="outlined"
               ></v-textarea>
             </v-col>
           </v-row>
         </v-form>
       </v-card-text>
       <v-card-text>
-        <v-btn @click="updateEstablishmentDetails" color="primary">
+        <v-btn color="primary" @click="updateEstablishmentDetails">
           Add new establishment
         </v-btn>
-        <v-btn @click="resetForm" color="primary" variant="outlined" class="ml-3">
+        <v-btn class="ml-3" color="primary" variant="outlined" @click="resetForm">
           Reset form
         </v-btn>
       </v-card-text>
@@ -219,7 +219,7 @@ export default {
   },
   methods: {
     getEstablishmentDetails() {
-      axios.get('/establishment/details/' + this.id, )
+      axios.get('/establishment/details/' + this.id,)
           .then(response => {
             this.form = response.data.establishment;
           })

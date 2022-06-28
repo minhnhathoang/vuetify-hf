@@ -1,14 +1,14 @@
 <template>
   <v-snackbar
+      v-model="showSnackbar"
       :color="color"
       :timeout="timer"
-      v-model="showSnackbar"
       location="center"
   >
     <v-progress-circular v-if="load === true"
-        indeterminate
+                         indeterminate
     ></v-progress-circular>
-    <div class="text-white font-weight-medium">{{message}}</div>
+    <div class="text-white font-weight-medium">{{ message }}</div>
   </v-snackbar>
 </template>
 
@@ -16,7 +16,7 @@
 export default {
   name: "vtoast",
   data() {
-    return{
+    return {
       showSnackbar: false,
       message: '',
       color: 'success',
@@ -24,7 +24,7 @@ export default {
       load: false
     }
   },
-  methods:{
+  methods: {
     show(data) {
       this.message = data.message || 'missing "message".'
       this.color = data.color || 'success'

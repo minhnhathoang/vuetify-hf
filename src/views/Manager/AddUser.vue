@@ -1,9 +1,9 @@
 <template>
   <v-card max-width="400">
     <v-card-header class="justify-center">
-        <h3 class="text-primary">
-          Admin
-        </h3>
+      <h3 class="text-primary">
+        Admin
+      </h3>
     </v-card-header>
     <v-divider></v-divider>
 
@@ -46,7 +46,7 @@
     </v-card-actions>
   </v-card>
 
-<!--  ////-->
+  <!--  ////-->
   <v-card>
     <v-toolbar
 
@@ -59,43 +59,43 @@
       <div class="align-content-space-between d-sm-flex">
         <v-text-field
             v-model="first_name"
-            type="text"
-            label="First Name"
-            variant="outlined"
             color="primary"
-            density="compact"/>
+            density="compact"
+            label="First Name"
+            type="text"
+            variant="outlined"/>
         <v-text-field
             v-model="surname"
-            type="text"
-            label="Surname"
-            variant="outlined"
             class="mx-sm-3"
             color="primary"
-            density="compact"/>
+            density="compact"
+            label="Surname"
+            type="text"
+            variant="outlined"/>
         <v-text-field
             v-model="last_name"
-            type="text"
-            label="Last Name"
-            variant="outlined"
             color="primary"
-            density="compact"/>
+            density="compact"
+            label="Last Name"
+            type="text"
+            variant="outlined"/>
       </div>
       <v-text-field
           v-model="email"
-          type="email"
-          label="Email" append-inner-icon="mdi-email"
+          append-inner-icon="mdi-email"
+          color="primary" density="compact"
+          label="Email"
           placeholder="john@example.com"
-          variant="outlined"
-          color="primary"
-          density="compact"/>
+          type="email"
+          variant="outlined"/>
 
       <v-select
           :items="roles"
+          color="primary"
+          density="compact"
           label="Role"
           multiple
           variant="outlined"
-          density="compact"
-          color="primary"
       ></v-select>
 
       <v-divider class="my-2"></v-divider>
@@ -118,14 +118,14 @@
 <script>
 export default {
   name: "AddUser",
-  data () {
+  data() {
     return {
       info: [
-          ["Name", "Hoang Minh Nhat"],
-          ["Emai", "minhatlop5b@gmail.com"],
-          ["Age", "20"],
-          ["Location", "Hai Duong"],
-          ["Gender", "Male"]
+        ["Name", "Hoang Minh Nhat"],
+        ["Emai", "minhatlop5b@gmail.com"],
+        ["Age", "20"],
+        ["Location", "Hai Duong"],
+        ["Gender", "Male"]
 
       ],
       roles: ['Manager', 'Specialist']

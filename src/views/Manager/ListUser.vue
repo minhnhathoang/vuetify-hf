@@ -6,8 +6,8 @@
     >
       <template v-slot:activator="{ props }">
         <v-btn
-            color="primary"
             v-bind="props"
+            color="primary"
         >
           Open Dialog
         </v-btn>
@@ -21,8 +21,8 @@
             <v-row>
               <v-col
                   cols="12"
-                  sm="6"
                   md="4"
+                  sm="6"
               >
                 <v-text-field
                     label="Legal first name*"
@@ -31,22 +31,22 @@
               </v-col>
               <v-col
                   cols="12"
-                  sm="6"
                   md="4"
+                  sm="6"
               >
                 <v-text-field
-                    label="Legal middle name"
                     hint="example of helper text only on focus"
+                    label="Legal middle name"
                 ></v-text-field>
               </v-col>
               <v-col
                   cols="12"
-                  sm="6"
                   md="4"
+                  sm="6"
               >
                 <v-text-field
-                    label="Legal last name*"
                     hint="example of persistent helper text"
+                    label="Legal last name*"
                     persistent-hint
                     required
                 ></v-text-field>
@@ -60,8 +60,8 @@
               <v-col cols="12">
                 <v-text-field
                     label="Password*"
-                    type="password"
                     required
+                    type="password"
                 ></v-text-field>
               </v-col>
               <v-col
@@ -115,7 +115,7 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       desserts: [
         {

@@ -12,12 +12,12 @@
         >
           <v-text-field
               v-model="search"
-              type="text"
-              placeholder="Search..."
-              variant="outlined"
+              color="primary"
               density="compact"
               hide-details
-              color="primary"
+              placeholder="Search..."
+              type="text"
+              variant="outlined"
               @keyup.prevent="handlePerPage"
           />
         </v-col>
@@ -28,13 +28,13 @@
           <v-select
               v-model="filter"
               :items="['Default', 'Active', 'Expired', 'Revoked', 'Not Certificate']"
-              label="Certificate Filter"
-              variant="outlined"
-              density="compact"
               color="primary"
+              dense
+              density="compact"
+              label="Certificate Filter"
               menu-icon="mdi-filter-variant"
               outlined
-              dense
+              variant="outlined"
           ></v-select>
         </v-col>
       </v-row>
@@ -47,15 +47,15 @@
         <tr>
           <th>No</th>
 
-<!--          <th v-for="column in columns" scope="col" @click="updateSortColumn(column)" class="text-no-wrap">-->
-<!--            {{ column }}-->
-<!--            <span v-if="column === sortField">-->
-<!--              <v-icon v-if="sortOrder === 'asc'">mdi-arrow-down</v-icon>-->
-<!--              <v-icon v-else>mdi-arrow-up</v-icon>-->
-<!--            </span>-->
-<!--          </th>-->
+          <!--          <th v-for="column in columns" scope="col" @click="updateSortColumn(column)" class="text-no-wrap">-->
+          <!--            {{ column }}-->
+          <!--            <span v-if="column === sortField">-->
+          <!--              <v-icon v-if="sortOrder === 'asc'">mdi-arrow-down</v-icon>-->
+          <!--              <v-icon v-else>mdi-arrow-up</v-icon>-->
+          <!--            </span>-->
+          <!--          </th>-->
 
-          <th scope="col" @click="updateSortColumn('name')" class="text-no-wrap">
+          <th class="text-no-wrap" scope="col" @click="updateSortColumn('name')">
             Name of food establishment
             <span v-if="'name' === sortField">
               <v-icon v-if="sortOrder === 'asc'">mdi-arrow-down</v-icon>
@@ -63,7 +63,7 @@
             </span>
           </th>
 
-          <th scope="col" @click="updateSortColumn('owner')" class="text-no-wrap">
+          <th class="text-no-wrap" scope="col" @click="updateSortColumn('owner')">
             Owner
             <span v-if="'owner' === sortField">
               <v-icon v-if="sortOrder === 'asc'">mdi-arrow-down</v-icon>
@@ -71,7 +71,7 @@
             </span>
           </th>
 
-          <th scope="col" @click="updateSortColumn('kind_of_business')" class="text-no-wrap">
+          <th class="text-no-wrap" scope="col" @click="updateSortColumn('kind_of_business')">
             Kind of business
             <span v-if="'kind_of_business' === sortField">
               <v-icon v-if="sortOrder === 'asc'">mdi-arrow-down</v-icon>
@@ -79,7 +79,7 @@
             </span>
           </th>
 
-          <th scope="col" @click="updateSortColumn('address')" class="text-no-wrap">
+          <th class="text-no-wrap" scope="col" @click="updateSortColumn('address')">
             Address
             <span v-if="'address' === sortField">
               <v-icon v-if="sortOrder === 'asc'">mdi-arrow-down</v-icon>
@@ -87,11 +87,11 @@
             </span>
           </th>
 
-          <th scope="col" class="text-no-wrap">
+          <th class="text-no-wrap" scope="col">
             Description
           </th>
 
-          <th scope="col" @click="updateSortColumn('certificates.registration_number')" class="text-no-wrap">
+          <th class="text-no-wrap" scope="col" @click="updateSortColumn('certificates.registration_number')">
             Reg. No
             <span v-if="'certificates.registration_number' === sortField">
               <v-icon v-if="sortOrder === 'asc'">mdi-arrow-down</v-icon>
@@ -103,7 +103,7 @@
         </thead>
         <tbody>
         <tr v-if="tableData.length === 0" class="text-error">
-          <td colspan="6" class="text-center">No Records found</td>
+          <td class="text-center" colspan="6">No Records found</td>
         </tr>
 
         <tr v-for="(data, index) in tableData" v-else>
@@ -116,14 +116,15 @@
           <td>{{ data['address'] }}</td>
           <td>{{ data['description'] }}</td>
           <td v-if="data['certificate']" class="text-success font-weight-bold">
-            <v-chip size="small" class="font-weight-bold" color="error" v-if="data['certificate']['is_revoked']">
-              #{{ data['certificate']['registration_number']}} Revoked
+            <v-chip v-if="data['certificate']['is_revoked']" class="font-weight-bold" color="error" size="small">
+              #{{ data['certificate']['registration_number'] }} Revoked
             </v-chip>
-            <v-chip size="small" class="font-weight-bold" color="secondary" v-else-if="data['certificate']['is_expired']">
-              #{{ data['certificate']['registration_number']}} Expried
+            <v-chip v-else-if="data['certificate']['is_expired']" class="font-weight-bold" color="secondary"
+                    size="small">
+              #{{ data['certificate']['registration_number'] }} Expried
             </v-chip>
-            <v-chip size="small" class="font-weight-bold" color="success" v-else>
-              #{{ data['certificate']['registration_number']}} Active
+            <v-chip v-else class="font-weight-bold" color="success" size="small">
+              #{{ data['certificate']['registration_number'] }} Active
             </v-chip>
           </td>
           <td v-else></td>
@@ -136,18 +137,18 @@
     <v-card-actions>
       <div class="ml-3 text-primary">
         <label class="mt-2 mr-2 text-caption text-sm-start text-no-wrap" for="pageOption">Rows per page</label>
-        <select v-model="perPage" id="pageOption" class="bg-white" @change="handlePerPage">
+        <select id="pageOption" v-model="perPage" class="bg-white" @change="handlePerPage">
           <option v-for="page in pageOptions" :key="page" :value="page">{{ page }}</option>
         </select>
       </div>
       <v-spacer></v-spacer>
       <v-pagination
-          color="primary"
-          density="comfortable"
-          border
-          class="me-2"
           v-model="page"
           :length="this.pagination.last_page"
+          border
+          class="me-2"
+          color="primary"
+          density="comfortable"
           total-visible="3"
           @click="handlePageChange"
       ></v-pagination>
@@ -173,7 +174,7 @@ export default {
       // sortField: 'registration_number',
 
       url: "http://localhost:8000/api/establishments",
-      columns: ['Name of food establishment', 'Owner',  'Kind of business', 'Address', 'Reg. No'],
+      columns: ['Name of food establishment', 'Owner', 'Kind of business', 'Address', 'Reg. No'],
     }
   },
   watch: {
@@ -230,7 +231,7 @@ export default {
       this.fetchData()
     },
     getEstablishmentDetails(id) {
-      this.$router.push({name: 'EstablishmentDetails', params: { id: id } });
+      this.$router.push({name: 'EstablishmentDetails', params: {id: id}});
     }
   },
 }

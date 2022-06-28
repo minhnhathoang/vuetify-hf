@@ -1,5 +1,5 @@
 <template>
-  <v-card width="400" class="mx-auto my-10">
+  <v-card class="mx-auto my-10" width="400">
     <v-card-title class="d-flex flex-column align-center justify-center py-7">
       <logo-app class="w-25 mb-10"></logo-app>
       <h2 class="text-2xl mb-5 text-primary">
@@ -9,10 +9,10 @@
 
     <v-card-text>
       <p class="text-2xl font-weight-semibold text--primary mb-2">
-<!--        Welcome to healthy-first! 👋-->
+        <!--        Welcome to healthy-first! 👋-->
       </p>
       <p class="mb-2">
-<!--        Please sign-in to your account.-->
+        <!--        Please sign-in to your account.-->
       </p>
     </v-card-text>
 
@@ -20,30 +20,29 @@
       <v-form>
         <v-text-field
             v-model="form.email"
-            type="email"
-            label="Email" append-inner-icon="mdi-email"
+            append-inner-icon="mdi-email"
+            density="compact" label="Email"
             placeholder="john@example.com"
-            variant="outlined"
-            density="compact"/>
+            type="email"
+            variant="outlined"/>
         <v-text-field
             v-model="form.password"
+            append-inner-icon="mdi-lock"
+            density="compact" label="Password"
             type="password"
-            label="Password" append-inner-icon="mdi-lock"
-            variant="outlined"
-            density="compact"/>
+            variant="outlined"/>
         <v-text-field
             v-model="form.password_confirmation"
+            append-inner-icon="mdi-lock"
+            density="compact" label="Confirm password"
             type="password"
-            label="Confirm password" append-inner-icon="mdi-lock"
-            variant="outlined"
-            density="compact"/>
-
+            variant="outlined"/>
 
 
         <v-btn
             block
-            color="primary"
             class="mt-6"
+            color="primary"
             @click="register"
         >
           Submit

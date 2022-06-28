@@ -9,60 +9,60 @@
         <div class="align-content-space-between d-sm-flex">
           <v-text-field
               v-model="form.first_name"
-              type="text"
-              label="First Name"
-              variant="outlined"
               color="primary"
-              density="compact"/>
+              density="compact"
+              label="First Name"
+              type="text"
+              variant="outlined"/>
           <v-text-field
               v-model="form.surname"
-              type="text"
-              label="Surname"
-              variant="outlined"
               class="mx-sm-3"
               color="primary"
-              density="compact"/>
+              density="compact"
+              label="Surname"
+              type="text"
+              variant="outlined"/>
           <v-text-field
               v-model="form.last_name"
-              type="text"
-              label="Last Name"
-              variant="outlined"
               color="primary"
-              density="compact"/>
+              density="compact"
+              label="Last Name"
+              type="text"
+              variant="outlined"/>
         </div>
         <v-text-field
             v-model="form.email"
-            type="email"
-            label="Email" append-inner-icon="mdi-email"
+            append-inner-icon="mdi-email"
+            color="primary" density="compact"
+            label="Email"
             placeholder="john@example.com"
-            variant="outlined"
-            color="primary"
-            density="compact"/>
+            type="email"
+            variant="outlined"/>
 
         <v-text-field
             v-model="form.mobile"
+            append-inner-icon="mdi-phone"
+            color="primary" density="compact"
+            label="Mobile"
             type="number"
-            label="Mobile" append-inner-icon="mdi-phone"
-            variant="outlined"
-            color="primary"
-            density="compact"/>
+            variant="outlined"/>
 
-<!--        <v-select-->
-<!--            :items="form.role_id"-->
-<!--            label="Role"-->
-<!--            variant="outlined"-->
-<!--            density="compact"-->
-<!--            color="primary"-->
-<!--        ></v-select>-->
+        <!--        <v-select-->
+        <!--            :items="form.role_id"-->
+        <!--            label="Role"-->
+        <!--            variant="outlined"-->
+        <!--            density="compact"-->
+        <!--            color="primary"-->
+        <!--        ></v-select>-->
 
         <v-snackbar
             v-model="snackbar"
-            timeout="5000"
-            location="center"
             color="error"
+            location="center"
+            timeout="5000"
         >
           <div v-for="(i, k) in errors">
-            {{i[0]}}
+            {{ i[0] }}
           </div>
           <template v-slot:actions>
             <v-btn
@@ -77,12 +77,12 @@
           <template v-slot:label>
             <div class="mb-4"><strong>Choose a user role</strong></div>
           </template>
-          <v-radio value="1" color="primary">
+          <v-radio color="primary" value="1">
             <template v-slot:label>
               Admin
             </template>
           </v-radio>
-          <v-radio value="2" color="primary">
+          <v-radio color="primary" value="2">
             <template v-slot:label>
               User
             </template>
@@ -108,9 +108,9 @@
             persistent
         >
           <v-progress-circular
+              :size="50"
               color="primary"
               indeterminate
-              :size="50"
           ></v-progress-circular>
         </v-dialog>
       </v-card-text>
@@ -121,7 +121,7 @@
 <script>
 export default {
   name: "AddUser",
-  data () {
+  data() {
     return {
       form: {
         first_name: null,
@@ -139,7 +139,7 @@ export default {
     }
   },
   watch: {
-    dialog (val) {
+    dialog(val) {
       if (!val) return
       setTimeout(() => (this.dialog = false), 1000)
     },

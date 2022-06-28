@@ -9,7 +9,7 @@
           </v-card-title>
           <v-spacer>
           </v-spacer>
-          <v-btn icon="mdi-pencil" color="primary" :to="{name: 'FormEditEstablishment', params: {id: this.id}}">Edit
+          <v-btn :to="{name: 'FormEditEstablishment', params: {id: this.id}}" color="primary" icon="mdi-pencil">Edit
           </v-btn>
         </v-card-header>
 
@@ -55,18 +55,18 @@
         <v-divider></v-divider>
 
         <v-card-header>
-          <v-card-title class="text-error" v-if="establishment.certificate">
+          <v-card-title v-if="establishment.certificate" class="text-error">
             Certificate
-            <v-chip size="small" v-if="establishment.certificate.is_revoked" class="font-weight-bold text-error ml-3">
+            <v-chip v-if="establishment.certificate.is_revoked" class="font-weight-bold text-error ml-3" size="small">
               Revoked
             </v-chip>
 
-            <v-chip size="small" v-else-if="establishment.certificate.is_expired === true"
-                    class="font-weight-bold text-secondary ml-3">
+            <v-chip v-else-if="establishment.certificate.is_expired === true" class="font-weight-bold text-secondary ml-3"
+                    size="small">
               Expired
             </v-chip>
 
-            <v-chip size="small" v-else class="font-weight-bold text-success ml-3">
+            <v-chip v-else class="font-weight-bold text-success ml-3" size="small">
               Active
             </v-chip>
           </v-card-title>
@@ -91,7 +91,9 @@
           <div class="font-weight-medium mt-3"> Valid until:
             <strong class="font-weight-bold"> {{ establishment.certificate.due_date }}
               <span
-                  class="text-no-wrap font-italic text-medium-emphasis">({{ establishment.certificate.time_remaining }})</span>
+                  class="text-no-wrap font-italic text-medium-emphasis">({{
+                  establishment.certificate.time_remaining
+                }})</span>
             </strong>
           </div>
         </v-card-text>
@@ -102,108 +104,109 @@
 
             <div v-if="establishment.certificate == null">
 
-                <v-dialog
-                    v-model="dialog"
-                    fullscreen
-                    max-width="900"
-                    class="my-sm-16 my-0"
-                    max-height="600"
-                >
-                  <template v-slot:activator="{ props }">
+              <v-dialog
+                  v-model="dialog"
+                  class="my-sm-16 my-0"
+                  fullscreen
+                  max-height="600"
+                  max-width="900"
+              >
+                <template v-slot:activator="{ props }">
+                  <v-btn
+                      v-bind="props"
+                      color="primary"
+                      size="small"
+                  >
+                    <v-icon>mdi-file-outline</v-icon>
+                    Add new
+                  </v-btn>
+
+                </template>
+                <v-card class="border-sm rounded-lg align-self-center">
+                  <v-card-text class="d-flex">
+                    <v-toolbar-title class="font-weight-medium">Certificate</v-toolbar-title>
+                    <v-btn flat icon="mdi-close" @click="dialog = !dialog">Close</v-btn>
+                  </v-card-text>
+
+                  <v-card-text>
+                    <div class="d-block d-sm-flex">
+                      <div class="font-weight-bold text-no-wrap align-self-baseline">TÊN CƠ SỞ
+                        <span
+                            class="font-italic font-weight-medium align-self-baseline">(Name of food establishment):</span>
+                      </div>
+                      <span class="mx-3 font-weight-bold text-accent">{{ establishment.name }}</span>
+                    </div>
+                    <div class="d-block d-sm-flex mt-3">
+                      <div class="font-weight-bold text-no-wrap align-self-baseline">CHỦ CƠ SỞ
+                        <span class="font-italic font-weight-medium align-self-baseline">(Owner):</span>
+                      </div>
+                      <td class="mx-3">{{ establishment.owner }}</td>
+                    </div>
+                    <div class="d-block d-sm-flex mt-3">
+                      <div class="font-weight-bold text-no-wrap align-self-baseline">ĐỊA CHỈ
+                        <span class="font-italic font-weight-medium align-self-baseline">(Address):</span>
+                      </div>
+                      <div class="mx-3">{{ establishment.address }}</div>
+                    </div>
+                    <div class="d-block d-sm-flex mt-3">
+                      <div class="font-weight-bold text-no-wrap align-self-baseline">LOẠI HÌNH KINH DOANH
+                        <span class="font-italic font-weight-medium align-self-baseline">(Kind of business):</span>
+                      </div>
+                      <div class="mx-3">{{ establishment.kind_of_business }}</div>
+                    </div>
+                    <div class="d-block d-sm-flex mt-3">
+                      <div class="font-weight-bold text-no-wrap align-self-baseline">ĐIỆN THOẠI
+                        <span class="font-italic font-weight-medium align-self-baseline">(Tel.):</span>
+                      </div>
+                      <div class="mx-3">{{ establishment.telephone }}</div>
+
+                    </div>
+
+                    <div class="d-block d-sm-flex mt-3">
+                      <v-text-field v-model="certificate.date_issued" class="mr-sm-3" color="primary" density="compact"
+                                    prefix="Ngày cấp (Date issued)"
+                                    type="date"
+                                    variant="outlined"
+                      ></v-text-field>
+                      <v-text-field v-model="certificate.due_date" color="primary" density="compact" prefix="Có hiệu lực (Valid until)"
+                                    type="date"
+                                    variant="outlined"></v-text-field>
+                    </div>
+                  </v-card-text>
+
+                  <v-card-text>
+                    <v-spacer></v-spacer>
                     <v-btn
-                        v-bind="props"
-                        color="primary"
-                        size="small"
+                        :disabled="dialog1"
+                        :loading="dialog1"
+                        class="bg-primary text-white"
+                        @click="addNewCertificate"
                     >
-                      <v-icon>mdi-file-outline</v-icon>
-                      Add new
+                      Submit
                     </v-btn>
-
-                  </template>
-                  <v-card class="border-sm rounded-lg align-self-center">
-                    <v-card-text class="d-flex">
-                      <v-toolbar-title class="font-weight-medium">Certificate</v-toolbar-title>
-                      <v-btn flat @click="dialog = !dialog" icon="mdi-close">Close</v-btn>
-                    </v-card-text>
-
-                    <v-card-text>
-                      <div class="d-block d-sm-flex">
-                        <div class="font-weight-bold text-no-wrap align-self-baseline">TÊN CƠ SỞ
-                          <span class="font-italic font-weight-medium align-self-baseline">(Name of food establishment):</span>
-                        </div>
-                        <span class="mx-3 font-weight-bold text-accent">{{ establishment.name }}</span>
-                      </div>
-                      <div class="d-block d-sm-flex mt-3">
-                        <div class="font-weight-bold text-no-wrap align-self-baseline">CHỦ CƠ SỞ
-                          <span class="font-italic font-weight-medium align-self-baseline">(Owner):</span>
-                        </div>
-                        <td class="mx-3">{{ establishment.owner }}</td>
-                      </div>
-                      <div class="d-block d-sm-flex mt-3">
-                        <div class="font-weight-bold text-no-wrap align-self-baseline">ĐỊA CHỈ
-                          <span class="font-italic font-weight-medium align-self-baseline">(Address):</span>
-                        </div>
-                        <div class="mx-3">{{ establishment.address }}</div>
-                      </div>
-                      <div class="d-block d-sm-flex mt-3">
-                        <div class="font-weight-bold text-no-wrap align-self-baseline">LOẠI HÌNH KINH DOANH
-                          <span class="font-italic font-weight-medium align-self-baseline">(Kind of business):</span>
-                        </div>
-                        <div class="mx-3">{{ establishment.kind_of_business }}</div>
-                      </div>
-                      <div class="d-block d-sm-flex mt-3">
-                        <div class="font-weight-bold text-no-wrap align-self-baseline">ĐIỆN THOẠI
-                          <span class="font-italic font-weight-medium align-self-baseline">(Tel.):</span>
-                        </div>
-                        <div class="mx-3">{{ establishment.telephone }}</div>
-
-                      </div>
-
-                      <div class="d-block d-sm-flex mt-3">
-                        <v-text-field type="date" variant="outlined" density="compact" prefix="Ngày cấp (Date issued)"
-                                      class="mr-sm-3"
-                                      color="primary"
-                                      v-model="certificate.date_issued"
-                        ></v-text-field>
-                        <v-text-field type="date" variant="outlined" density="compact" prefix="Có hiệu lực (Valid until)"
-                                      color="primary"
-                                      v-model="certificate.due_date"></v-text-field>
-                      </div>
-                    </v-card-text>
-
-                    <v-card-text>
-                      <v-spacer></v-spacer>
-                      <v-btn
-                          :disabled="dialog1"
-                          :loading="dialog1"
-                          class="bg-primary text-white"
-                          @click="addNewCertificate"
-                      >
-                        Submit
-                      </v-btn>
-                      <v-dialog
-                          v-model="dialog1"
-                          hide-overlay
-                          persistent
-                      >
-                        <v-progress-circular
-                            color="primary"
-                            indeterminate
-                            :size="50"
-                        ></v-progress-circular>
-                      </v-dialog>
-                    </v-card-text>
-                  </v-card>
-                </v-dialog>
+                    <v-dialog
+                        v-model="dialog1"
+                        hide-overlay
+                        persistent
+                    >
+                      <v-progress-circular
+                          :size="50"
+                          color="primary"
+                          indeterminate
+                      ></v-progress-circular>
+                    </v-dialog>
+                  </v-card-text>
+                </v-card>
+              </v-dialog>
             </div>
 
             <div v-if="establishment.certificate && establishment.certificate.is_expired === false">
               <div v-if="establishment.certificate && establishment.certificate.is_revoked === 0" class="ml-3">
                 <v-btn
                     v-bind="props"
-                    size="small"
-                    flat=""
                     color="error"
+                    flat=""
+                    size="small"
                     variant="outlined"
                     @click="revoke"
                 >
@@ -214,9 +217,9 @@
               <div v-if="establishment.certificate && establishment.certificate.is_revoked === 1" class="ml-3">
                 <v-btn
                     v-bind="props"
-                    size="small"
-                    flat=""
                     color="error"
+                    flat=""
+                    size="small"
                     variant="outlined"
                     @click="unrevoke"
                 >
@@ -229,9 +232,9 @@
             <div v-if="establishment.certificate" class="ml-3">
               <v-btn
                   v-bind="props"
-                  size="small"
-                  flat=""
                   color=""
+                  flat=""
+                  size="small"
                   variant="outlined"
                   @click="deleteCertificate"
               >

@@ -1,10 +1,10 @@
 <template>
   <div>
     <v-btn
-        @click.stop="language = !language"
         icon
+        @click.stop="language = !language"
     >
-      {{language ? "vi" : "en"}}
+      {{ language ? "vi" : "en" }}
     </v-btn>
 
   </div>

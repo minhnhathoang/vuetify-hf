@@ -1,9 +1,9 @@
 <template>
   <v-container fluid>
     <calendar
-        class="custom-calendar"
-        :masks="masks"
         :attributes="attributes"
+        :masks="masks"
+        class="custom-calendar"
     >
       <template v-slot:day-content="{ day, attributes }">
         <div>
@@ -12,8 +12,8 @@
             <p
                 v-for="attr in attributes"
                 :key="attr.key"
-                class="rounded-lg p-1 mt-0 mb-1 mx-1 px-2"
                 :class="attr.customData.class"
+                class="rounded-lg p-1 mt-0 mb-1 mx-1 px-2"
             >
               {{ attr.customData.title }}
             </p>
@@ -49,7 +49,7 @@ export default {
             title: 'Lunch with mom.',
             class: 'bg-info',
           },
-          dates: { start: new Date(year, month, 1), end: new Date(year, month, 6) }
+          dates: {start: new Date(year, month, 1), end: new Date(year, month, 6)}
         },
         {
           key: 2,

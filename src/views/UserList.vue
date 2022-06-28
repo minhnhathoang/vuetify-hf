@@ -12,12 +12,12 @@
         >
           <v-text-field
               v-model="search"
-              type="text"
-              placeholder="Search..."
-              variant="outlined"
+              color="primary"
               density="compact"
               hide-details
-              color="primary"
+              placeholder="Search..."
+              type="text"
+              variant="outlined"
               @keyup.prevent="handlePerPage"
           />
         </v-col>
@@ -27,14 +27,14 @@
 
           <v-dialog
               v-model="dialog"
+              class="my-sm-10 my-0"
               fullscreen
               max-width="600"
-              class="my-sm-10 my-0"
           >
             <template v-slot:activator="{ props }">
               <v-btn
-                  color="primary"
                   v-bind="props"
+                  color="primary"
               >
                 Add new user
               </v-btn>
@@ -42,69 +42,69 @@
             <v-card class="border-sm rounded-lg align-self-center">
               <v-card-text class="d-flex">
                 <v-toolbar-title class="font-weight-medium">Add user</v-toolbar-title>
-                <v-btn flat @click="dialog = !dialog" icon="mdi-close">Close</v-btn>
+                <v-btn flat icon="mdi-close" @click="dialog = !dialog">Close</v-btn>
               </v-card-text>
 
               <v-card-text>
                 <div class="align-content-space-between d-sm-flex">
                   <v-text-field
                       v-model="form.first_name"
-                      type="text"
-                      label="First Name"
-                      variant="outlined"
                       color="primary"
-                      density="compact"/>
+                      density="compact"
+                      label="First Name"
+                      type="text"
+                      variant="outlined"/>
                   <v-text-field
                       v-model="form.surname"
-                      type="text"
-                      label="Surname"
-                      variant="outlined"
                       class="mx-sm-3"
                       color="primary"
-                      density="compact"/>
+                      density="compact"
+                      label="Surname"
+                      type="text"
+                      variant="outlined"/>
                   <v-text-field
                       v-model="form.last_name"
-                      type="text"
-                      label="Last Name"
-                      variant="outlined"
                       color="primary"
-                      density="compact"/>
+                      density="compact"
+                      label="Last Name"
+                      type="text"
+                      variant="outlined"/>
                 </div>
                 <v-text-field
                     v-model="form.email"
-                    type="email"
-                    label="Email" append-inner-icon="mdi-email"
+                    append-inner-icon="mdi-email"
+                    color="primary" density="compact"
+                    label="Email"
                     placeholder="john@example.com"
-                    variant="outlined"
-                    color="primary"
-                    density="compact"/>
+                    type="email"
+                    variant="outlined"/>
 
                 <v-text-field
                     v-model="form.mobile"
+                    append-inner-icon="mdi-phone"
+                    color="primary" density="compact"
+                    label="Mobile"
                     type="number"
-                    label="Mobile" append-inner-icon="mdi-phone"
-                    variant="outlined"
-                    color="primary"
-                    density="compact"/>
+                    variant="outlined"/>
 
                 <div class="d-flex mb-5">
                   <v-text-field
                       v-model="form.birthday"
-                      variant="outlined"
-                      density="compact"
                       color="primary"
-                      outlined
+                      density="compact"
                       hide-details
                       label="Birthday"
+                      outlined
                       type="date"
+                      variant="outlined"
                   />
-                  <v-radio-group v-model="form.gender" inline class="d-flex">
-                    <v-radio value="0" color="primary">
+                  <v-radio-group v-model="form.gender" class="d-flex" inline>
+                    <v-radio color="primary" value="0">
                       <template v-slot:label class="">
                         Male
                       </template>
                     </v-radio>
-                    <v-radio value="1" color="primary">
+                    <v-radio color="primary" value="1">
                       <template v-slot:label>
                         Female
                       </template>
@@ -114,24 +114,24 @@
                 <v-select
                     v-model="form.location"
                     :items="this.$store.state.gso.provinces"
-                    label="Location"
-                    variant="outlined"
-                    density="compact"
                     color="primary"
-                    outlined
                     dense
+                    density="compact"
+                    label="Location"
+                    outlined
+                    variant="outlined"
                 ></v-select>
 
                 <v-radio-group v-model="form.role" inline>
                   <template v-slot:label>
                     <div class="mb-4"><strong>Choose a user role</strong></div>
                   </template>
-                  <v-radio value="0" color="primary">
+                  <v-radio color="primary" value="0">
                     <template v-slot:label>
                       Admin
                     </template>
                   </v-radio>
-                  <v-radio value="1" color="primary">
+                  <v-radio color="primary" value="1">
                     <template v-slot:label>
                       Specialist
                     </template>
@@ -156,9 +156,9 @@
                     persistent
                 >
                   <v-progress-circular
+                      :size="50"
                       color="primary"
                       indeterminate
-                      :size="50"
                   ></v-progress-circular>
                 </v-dialog>
               </v-card-text>
@@ -174,7 +174,7 @@
         <thead class="text-uppercase text-primary">
         <tr>
           <th>No</th>
-          <th v-for="column in columns" scope="col" @click="updateSortColumn(column)" class="text-no-wrap">
+          <th v-for="column in columns" class="text-no-wrap" scope="col" @click="updateSortColumn(column)">
             {{ column.toUpperCase().replace('_', ' ') }}
             <span v-if="column === sortField">
           <v-icon v-if="sortOrder === 'asc'">mdi-arrow-down</v-icon>
@@ -188,7 +188,7 @@
         </thead>
         <tbody>
         <tr v-if="tableData.length === 0" class="text-error">
-          <td colspan="6" class="text-center">No Records found</td>
+          <td class="text-center" colspan="6">No Records found</td>
         </tr>
         <tr v-for="(data, index) in tableData" v-else>
           <td class="text-primary">
@@ -198,11 +198,11 @@
           <td class=" align-center">
 
             <div class="d-flex align-center">
-              <v-avatar size="small" v-if="data['avatar']" color="primary">
+              <v-avatar v-if="data['avatar']" color="primary" size="small">
                 <v-img :src="data['avatar']"></v-img>
               </v-avatar>
 
-              <v-avatar v-else size="small" color="primary">
+              <v-avatar v-else color="primary" size="small">
                 {{ data['full_name'].charAt(0) }}
               </v-avatar>
 
@@ -214,9 +214,12 @@
           </td>
 
           <td>
-            <v-chip size="small" :color="data['role'] === 'Admin' ? 'primary' : 'warning'" class="font-weight-bold">
+            <v-chip :color="data['role'] === 'Admin' ? 'primary' : 'warning'" class="font-weight-bold" size="small">
               {{ data['role'] }}
             </v-chip>
+          </td>
+          <td class="text-no-wrap">
+            {{ data['location'] }}
           </td>
           <td class="text-no-wrap">
             {{ data['mobile'] }}
@@ -228,13 +231,13 @@
             {{ data['joined_on'] }}
           </td>
           <td class="text-no-wrap">
-            <v-btn @click="getUserDetails(data['id'])" elevation="0" size="x-small" icon="mdi-eye-outline"
-                   color="accent" variant="text">
+            <v-btn color="accent" elevation="0" icon="mdi-eye-outline" size="x-small"
+                   variant="text" @click="getUserDetails(data['id'])">
             </v-btn>
 
-            <v-btn @click="askDeleteUser(data['id'])" elevation="0" size="x-small" icon="mdi-trash-can-outline"
-                   color="error"
-                   variant="text">
+            <v-btn color="error" elevation="0" icon="mdi-trash-can-outline" size="x-small"
+                   variant="text"
+                   @click="askDeleteUser(data['id'])">
             </v-btn>
           </td>
         </tr>
@@ -245,18 +248,18 @@
     <v-card-actions>
       <div class="ml-3 text-primary">
         <label class="mt-2 mr-2 text-caption text-sm-start text-no-wrap" for="pageOption">Rows per page</label>
-        <select v-model="perPage" id="pageOption" class="bg-white" @change="handlePerPage">
+        <select id="pageOption" v-model="perPage" class="bg-white" @change="handlePerPage">
           <option v-for="page in pageOptions" :key="page" :value="page">{{ page }}</option>
         </select>
       </div>
       <v-spacer></v-spacer>
       <v-pagination
-          color="primary"
-          density="comfortable"
-          border
-          class="me-2"
           v-model="page"
           :length="this.pagination.last_page"
+          border
+          class="me-2"
+          color="primary"
+          density="comfortable"
           total-visible="3"
           @click="handlePageChange"
       ></v-pagination>
@@ -313,7 +316,7 @@ export default {
     pagination: {to: 1, from: 1},
 
     url: "http://localhost:8000/api/users",
-    columns: ['full_name', 'role', 'mobile', 'address', 'joined_on'],
+    columns: ['full_name', 'role', 'location', 'mobile', 'address', 'joined_on'],
 
     form: {
       first_name: null,

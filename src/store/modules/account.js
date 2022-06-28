@@ -92,7 +92,7 @@ export default {
 
         getUser: ({commit}) => {
             return new Promise((resolve, reject) => {
-                 axios.get('/user')
+                axios.get('/user')
                     .then(response => {
                         commit('setUser', response.data.data[0]);
                         console.log(response);

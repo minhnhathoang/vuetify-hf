@@ -6,10 +6,10 @@
     <v-list-item
         v-for="(item, i) in items"
         :key="i"
-        :value="item"
-        active-color="primary"
         :prepend-icon="item.icon"
         :to="item.link"
+        :value="item"
+        active-color="primary"
     >
       <v-list-item-title v-text="item.text"></v-list-item-title>
     </v-list-item>
@@ -18,80 +18,81 @@
     <!--    User Management-->
     <v-list-group v-if="this.$store.state.account.user.role === 0">
       <template v-slot:activator="{ props }">
-        <v-list-item v-bind="props" title="User" active-color="primary"
-                     prepend-icon="mdi-account-group-outline"></v-list-item>
+        <v-list-item v-bind="props" active-color="primary" prepend-icon="mdi-account-group-outline"
+                     title="User"></v-list-item>
       </template>
       <v-list-item
           v-for="([title, icon, link], i) in userManagement"
           :key="i"
-          :value="title"
           :title="title"
           :to="link"
+          :value="title"
           active-color="primary"
       ></v-list-item>
     </v-list-group>
 
     <v-list-group>
       <template v-slot:activator="{ props }">
-        <v-list-item v-bind="props" title="Establishment" active-color="primary"
-                     prepend-icon="mdi-warehouse"></v-list-item>
+        <v-list-item v-bind="props" active-color="primary" prepend-icon="mdi-warehouse"
+                     title="Establishment"></v-list-item>
       </template>
 
       <v-list-item
           v-for="([title, icon, link], i) in establishment"
           :key="i"
-          :value="title"
           :title="title"
           :to="link"
+          :value="title"
           active-color="primary"
       ></v-list-item>
     </v-list-group>
 
-<!--    &lt;!&ndash;    Certifies Management&ndash;&gt;-->
-<!--    <v-list-group>-->
-<!--      <template v-slot:activator="{ props }">-->
-<!--        <v-list-item v-bind="props" title="Certifies" active-color="primary"-->
-<!--                     prepend-icon="mdi-clipboard-search-outline"></v-list-item>-->
-<!--      </template>-->
+    <!--    &lt;!&ndash;    Certifies Management&ndash;&gt;-->
+    <!--    <v-list-group>-->
+    <!--      <template v-slot:activator="{ props }">-->
+    <!--        <v-list-item v-bind="props" title="Certifies" active-color="primary"-->
+    <!--                     prepend-icon="mdi-clipboard-search-outline"></v-list-item>-->
+    <!--      </template>-->
 
-<!--      <v-list-item-->
-<!--          v-for="([title, icon], i) in certifies"-->
-<!--          :key="i"-->
-<!--          :value="title"-->
-<!--          :title="title"-->
-<!--          active-color="primary"-->
-<!--      ></v-list-item>-->
-<!--    </v-list-group>-->
+    <!--      <v-list-item-->
+    <!--          v-for="([title, icon], i) in certifies"-->
+    <!--          :key="i"-->
+    <!--          :value="title"-->
+    <!--          :title="title"-->
+    <!--          active-color="primary"-->
+    <!--      ></v-list-item>-->
+    <!--    </v-list-group>-->
 
     <!--    Help & Support-->
     <v-list-group>
       <template v-slot:activator="{ props }">
-        <v-list-item v-bind="props" title="Help & Support" active-color="primary"
-                     prepend-icon="mdi-help-circle-outline"></v-list-item>
+        <v-list-item v-bind="props" active-color="primary" prepend-icon="mdi-help-circle-outline"
+                     title="Help & Support"></v-list-item>
       </template>
 
       <v-list-item
           v-for="([title, icon], i) in healAndSupport"
           :key="i"
-          :value="title"
           :title="title"
+          :value="title"
           active-color="primary"
       ></v-list-item>
     </v-list-group>
 
-    <v-list-subheader v-if="this.$store.state.account.user.role === 'Admin'" class="text-uppercase mt-5">Admintration</v-list-subheader>
+    <v-list-subheader v-if="this.$store.state.account.user.role === 'Admin'" class="text-uppercase mt-5">Admintration
+    </v-list-subheader>
 
     <v-list-group v-if="this.$store.state.account.user.role === 'Admin'">
       <template v-slot:activator="{ props }">
-        <v-list-item v-bind="props" title="User" active-color="primary"
-                     prepend-icon="mdi-account-group-outline"></v-list-item>
+        <v-list-item v-bind="props" active-color="primary" prepend-icon="mdi-account-group-outline"
+                     title="User"></v-list-item>
       </template>
       <v-list-item
           v-for="([title, icon, link], i) in userManagement"
           :key="i"
-          :value="title"
           :title="title"
           :to="link"
+          :value="title"
           active-color="primary"
       ></v-list-item>
     </v-list-group>

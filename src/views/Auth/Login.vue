@@ -1,6 +1,6 @@
 <template>
   <v-row align="center" justify="center">
-    <v-card max-width="400" class="mx-auto my-10 w-100">
+    <v-card class="mx-auto my-10 w-100" max-width="400">
       <v-card-title class="d-flex flex-column pt-10">
         <logo-app class="w-25 mb-10"></logo-app>
         <h2 class="text-2xl text-primary">
@@ -18,26 +18,26 @@
         </p>
       </v-card-text>
       <v-form>
-      <v-card-text>
+        <v-card-text>
           <v-text-field
               v-model="email"
-              type="email"
-              label="Email" append-inner-icon="mdi-email"
-              placeholder="john@example.com"
-              variant="outlined"
               :rules="emailRules"
-              density="compact"/>
+              append-inner-icon="mdi-email" density="compact"
+              label="Email"
+              placeholder="john@example.com"
+              type="email"
+              variant="outlined"/>
           <v-text-field
               v-model="password"
-              type="password"
-              label="Password" append-inner-icon="mdi-lock"
-              variant="outlined"
               :rules="passwordRules"
-              density="compact"
+              append-inner-icon="mdi-lock" density="compact"
+              label="Password"
+              type="password"
+              variant="outlined"
           />
-        <v-alert v-if="errors != null" color="error" variant="text-">{{errors}}</v-alert>
-      </v-card-text>
-        <v-btn size="small" flat class="float-right me-5 mb-2" to="/forgot-password">
+          <v-alert v-if="errors != null" color="error" variant="text-">{{ errors }}</v-alert>
+        </v-card-text>
+        <v-btn class="float-right me-5 mb-2" flat size="small" to="/forgot-password">
           Forgot password?
         </v-btn>
         <v-card-text>
@@ -75,8 +75,8 @@ export default {
       },
     ],
     passwordRules: [
-        v => !!v || 'The password field is required.',
-        v => (v || '').length >= 8 || 'The password field must be at least 8 characters.',
+      v => !!v || 'The password field is required.',
+      v => (v || '').length >= 8 || 'The password field must be at least 8 characters.',
     ]
   }),
   methods: {
